@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
 import {
@@ -6,12 +7,15 @@ import {
 } from 'react-native-responsive-screen';
 import FastImage from 'react-native-fast-image';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import moment from 'moment';
 
 // components
 import COLORS from '../../../config/constants/colors';
 import UstpImages from '../../../config/images/ustp-images';
 
-const FreedomWallItem = ({id, image, description, user}) => {
+
+const FreedomWallItem = ({id, user, images, title, date}) => {
+  console.log('1test', images);
   return (
     <View
       style={{
@@ -26,7 +30,7 @@ const FreedomWallItem = ({id, image, description, user}) => {
         style={{alignItems: 'flex-start', padding: 10, flexDirection: 'row'}}>
         <FastImage
           // @ts-ignore
-          source={image ? image : UstpImages.ustpLogo}
+          source={UstpImages.ustpLogo}
           style={{
             height: hp(5),
             width: hp(5),
@@ -40,6 +44,7 @@ const FreedomWallItem = ({id, image, description, user}) => {
               color: COLORS.black,
               fontFamily: 'Roboto-Bold',
               fontSize: 13,
+              textTransform: 'capitalize',
             }}>
             {user}
           </Text>
@@ -49,15 +54,18 @@ const FreedomWallItem = ({id, image, description, user}) => {
               fontFamily: 'Roboto-Regular',
               fontSize: 10,
             }}>
-            September 12, 2023 at 2:04 PM
+            {moment(date).format("LLL")}
           </Text>
         </View>
       </View>
-      {image ? (
+
+      {images?.map((data, index) => {
         <>
           <FastImage
-            // @ts-ignore
-            source={image}
+            key={index}
+            source={{
+              uri: `http://localhost:8000/storage/images/resource/edpkKjNjfRpqBDn9l6rYxr2lYewhj870316PtjxN.png`,
+            }}
             style={{
               height: '45%',
               width: '100%',
@@ -74,30 +82,30 @@ const FreedomWallItem = ({id, image, description, user}) => {
                 color: COLORS.black,
               }}
               numberOfLines={5}>
-              {description}
+              {title}
             </Text>
           </View>
-        </>
-      ) : (
-        <View
+        </>;
+      })}
+
+      <View
+        style={{
+          backgroundColor: COLORS.black,
+          height: hp('30%'),
+          justifyContent: 'center',
+        }}>
+        <Text
           style={{
-            backgroundColor: COLORS.black,
-            height: hp('30%'),
-            justifyContent: 'center',
-          }}>
-          <Text
-            style={{
-              padding: 10,
-              fontFamily: 'Roboto-Bold',
-              color: COLORS.white,
-              textAlign: 'center',
-              fontSize: hp(3),
-            }}
-            numberOfLines={5}>
-            {description}
-          </Text>
-        </View>
-      )}
+            padding: 10,
+            fontFamily: 'Roboto-Bold',
+            color: COLORS.white,
+            textAlign: 'center',
+            fontSize: hp(3),
+          }}
+          numberOfLines={5}>
+          {title}
+        </Text>
+      </View>
 
       <View
         style={{
