@@ -1,5 +1,3 @@
-/* eslint-disable prettier/prettier */
-/* eslint-disable react-native/no-inline-styles */
 import {View, Text} from 'react-native';
 import React, {useState, useCallback, useEffect} from 'react';
 import {useDispatch} from 'react-redux';
@@ -10,19 +8,18 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import _ from 'lodash';
 
 // redux
-import {loadingStart, loadingFinish} from '../../../store/loader/reducers';
+import {loadingStart, loadingFinish} from '../../../store/loader/LoaderSlice';
 
 // components
-import HeaderComponent from '../../../components/header/HeaderComponent';
-import PersonalInfoComponent from '../../../components/screens/profile/personal-info/PersonalInfoComponent';
-import ButtonComponent from '../../../components/input/Buttons/ButtonComponent';
+import Header from '../../../components/header/Header';
+import ButtonComponent from '../../../components/input/button/ButtonComponent';
 import {changePasswordSchema} from '../../../library/yup-schema/changePasswordSchema';
-import SecurityComponent from '../../../components/screens/profile/security/SecurityComponent';
+import SecurityComponent from '../../../components/screen/profile/security/SecurityComponent';
 import {useStorage} from '../../../library/storage/Storage';
-import {USER} from '../../../library/contants';
+import {USER} from '../../../library/constants';
 
 // api
-import {ChangePassword} from '../../../services/userApi';
+import {ChangePassword} from '../../../library/api/userApi';
 
 const SecurityScreen = () => {
   const navigation = useNavigation();
@@ -37,7 +34,7 @@ const SecurityScreen = () => {
 
   const {
     control,
-    setValue,
+    // setValue,
     handleSubmit,
     formState: {errors},
   } = useForm({
@@ -65,7 +62,9 @@ const SecurityScreen = () => {
       new_password: data.newPassword,
     };
     const response = await ChangePassword(payload);
-    if (!_.isUndefined(response)) {navigation.navigate('ProfileScreen');}
+    if (!_.isUndefined(response)) {
+      navigation.navigate('ProfileScreen');
+    }
     dispatch(loadingFinish());
   };
 
@@ -77,7 +76,7 @@ const SecurityScreen = () => {
         width: '95%',
         alignSelf: 'center',
       }}>
-      <HeaderComponent>
+      <Header>
         <Icon
           name={'arrow-back'}
           size={30}
@@ -100,7 +99,7 @@ const SecurityScreen = () => {
             Security
           </Text>
         </View>
-      </HeaderComponent>
+      </Header>
       <View style={{marginTop: 10, width: '100%'}}>
         <SecurityComponent control={control} errors={errors} />
       </View>

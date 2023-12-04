@@ -1,11 +1,11 @@
 import AnnouncementStack from '../navigations/stack/Announcement';
-import EventsScreen from '../screens/events/EventsScreen';
+import JobPostingStack from '../navigations/stack/JobPosting';
 import PostStack from '../navigations/stack/Post';
-import ProfileScreen from '../screens/profile/ProfileScreen';
+import ProfileStack from '../navigations/stack/Profile';
 
 export const UserTabs = [
   {
-    name: 'PostStack',
+    name: 'Posts',
     component: PostStack,
     iconName: 'notes',
   },
@@ -16,12 +16,12 @@ export const UserTabs = [
   },
   {
     name: 'Job Posting',
-    component: EventsScreen,
+    component: JobPostingStack,
     iconName: 'emoji-events',
   },
   {
     name: 'Profile',
-    component: ProfileScreen,
+    component: ProfileStack,
     iconName: 'person',
   },
 ];

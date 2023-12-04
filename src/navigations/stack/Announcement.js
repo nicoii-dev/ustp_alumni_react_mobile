@@ -11,9 +11,9 @@ const AnnouncementStack = createStackNavigator();
 
 const Announcement = () => {
   return (
-    <AnnouncementStack.Navigator initialRouteName="Announcement">
+    <AnnouncementStack.Navigator initialRouteName="AnnouncementScreen">
       <AnnouncementStack.Screen
-        name="Announcement"
+        name="AnnouncementScreen"
         component={AnnouncementsScreen}
         options={{headerShown: false}}
       />

@@ -3,23 +3,23 @@ import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 
 // screens
-import AnnouncementsScreen from '../../screens/announcements/AnnouncementsScreen';
-import ViewAnnouncementScreen from '../../screens/announcements/ViewAnnouncement';
+import JobPostingScreen from '../../screens/job-posting/JobPostingScreen';
+import ViewJobPostingScreen from '../../screens/job-posting/ViewJobPostingScreen';
 
 // stack instance
 const JobPostingStack = createStackNavigator();
 
 const JobPosting = () => {
   return (
-    <JobPostingStack.Navigator initialRouteName="Announcement">
+    <JobPostingStack.Navigator initialRouteName="JobPostingScreen">
       <JobPostingStack.Screen
-        name="Announcement"
-        component={AnnouncementsScreen}
+        name="JobPostingScreen"
+        component={JobPostingScreen}
         options={{headerShown: false}}
       />
       <JobPostingStack.Screen
-        name="ViewAnnouncementScreen"
-        component={ViewAnnouncementScreen}
+        name="ViewJobPostingScreen"
+        component={ViewJobPostingScreen}
         options={{headerShown: false}}
       />
     </JobPostingStack.Navigator>

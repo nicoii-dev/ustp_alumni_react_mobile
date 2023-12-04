@@ -4,7 +4,7 @@ import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+// import Icon from 'react-native-vector-icons/MaterialIcons';
 import COLORS from '../../config/constants/colors';
 
 // eslint-disable-next-line react/prop-types
@@ -25,7 +25,7 @@ const Header = ({children}) => {
           <View
             style={{
               flexDirection: 'row',
-              justifyContent: 'space-between',
+              justifyContent: 'center',
               width: '100%',
               padding: wp(5),
               alignItems: 'center',
@@ -40,7 +40,7 @@ const Header = ({children}) => {
                 USTP Alumnus
               </Text>
             </View>
-            <View
+            {/* <View
               style={{flexDirection: 'row', alignItems: 'center', gap: wp(2)}}>
               <Icon name={'search'} size={25} color={COLORS.navyBlue} />
               <Icon
@@ -48,19 +48,19 @@ const Header = ({children}) => {
                 size={25}
                 color={COLORS.navyBlue}
               />
-              {/* <TouchableOpacity>
-            <FastImage
-              // @ts-ignore
-              source={UstpImages.ustpLogo}
-              style={{
-                height: hp(4),
-                width: hp(4),
-                borderRadius: 100,
-              }}
-              resizeMode="contain"
-            />
-          </TouchableOpacity> */}
-            </View>
+              <TouchableOpacity>
+                <FastImage
+                  // @ts-ignore
+                  source={UstpImages.ustpLogo}
+                  style={{
+                    height: hp(4),
+                    width: hp(4),
+                    borderRadius: 100,
+                  }}
+                  resizeMode="contain"
+                />
+              </TouchableOpacity>
+            </View> */}
           </View>
         </>
       )}

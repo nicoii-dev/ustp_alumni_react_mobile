@@ -1,42 +1,12 @@
 /* eslint-disable prettier/prettier */
 import {View, Text} from 'react-native';
 import React from 'react';
-import {useForm} from 'react-hook-form';
-import {yupResolver} from '@hookform/resolvers/yup';
 import {useNavigation} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import HeaderComponent from '../../../components/header/HeaderComponent';
-import PersonalInfoComponent from '../../../components/screens/profile/personal-info/PersonalInfoComponent';
-import ButtonComponent from '../../../components/input/Buttons/ButtonComponent';
-import {profileSchema} from '../../../library/yup-schema/profileSchema';
-import SecurityComponent from '../../../components/screens/profile/security/SecurityComponent';
+import Header from '../../../components/header/Header';
 
 const AboutScreen = () => {
   const navigation = useNavigation();
-
-  const defaultValues = {
-    firstName: '',
-    lastName: '',
-    middleName: '',
-    gender: 'Male',
-    phoneNumber: '',
-    dob: new Date(),
-  };
-
-  const {
-    control,
-    setValue,
-    handleSubmit,
-    formState: {errors},
-  } = useForm({
-    resolver: yupResolver(profileSchema),
-    defaultValues: defaultValues,
-  });
-
-  const onSubmit = data => {
-    console.log(data);
-  };
-
   return (
     <View
       style={{
@@ -45,7 +15,7 @@ const AboutScreen = () => {
         width: '95%',
         alignSelf: 'center',
       }}>
-      <HeaderComponent>
+      <Header>
         <Icon
           name={'arrow-back'}
           size={30}
@@ -68,9 +38,9 @@ const AboutScreen = () => {
             About
           </Text>
         </View>
-      </HeaderComponent>
+      </Header>
       <View>
-        <Text>wewqeqwe</Text>
+        <Text>This is about screen</Text>
       </View>
     </View>
   );

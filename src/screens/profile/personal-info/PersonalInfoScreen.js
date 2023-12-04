@@ -1,27 +1,25 @@
-/* eslint-disable prettier/prettier */
-/* eslint-disable react-native/no-inline-styles */
 import {View, Text} from 'react-native';
 import React, {useCallback, useEffect, useState} from 'react';
 import {useForm} from 'react-hook-form';
 import {yupResolver} from '@hookform/resolvers/yup';
 import {useNavigation} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { useDispatch } from 'react-redux';
+import {useDispatch} from 'react-redux';
 
 // components
-import HeaderComponent from '../../../components/header/HeaderComponent';
-import PersonalInfoComponent from '../../../components/screens/profile/personal-info/PersonalInfoComponent';
-import ButtonComponent from '../../../components/input/Buttons/ButtonComponent';
+import Header from '../../../components/header/Header';
+import PersonalInfoComponent from '../../../components/screen/profile/personal-info/PersonalInfoComponent';
+import ButtonComponent from '../../../components/input/button/ButtonComponent';
 import {profileSchema} from '../../../library/yup-schema/profileSchema';
-import {USER} from '../../../library/contants';
+import {USER} from '../../../library/constants';
 import {useStorage} from '../../../library/storage/Storage';
 import moment from 'moment';
 
 // api
-import {UpdateProfile} from '../../../services/userApi';
+import {UpdateProfile} from '../../../library/api/userApi';
 
 // redux
-import { loadingStart, loadingFinish } from '../../../store/loader/reducers';
+import {loadingStart, loadingFinish} from '../../../store/loader/LoaderSlice';
 
 const PersonalInfoScreen = () => {
   const navigation = useNavigation();
@@ -39,7 +37,7 @@ const PersonalInfoScreen = () => {
 
   const {
     control,
-    setValue,
+    // setValue,
     handleSubmit,
     formState: {errors},
     reset,
@@ -102,7 +100,7 @@ const PersonalInfoScreen = () => {
         width: '95%',
         alignSelf: 'center',
       }}>
-      <HeaderComponent>
+      <Header>
         <Icon
           name={'arrow-back'}
           size={30}
@@ -125,7 +123,7 @@ const PersonalInfoScreen = () => {
             {`Personal \nInformation`}
           </Text>
         </View>
-      </HeaderComponent>
+      </Header>
       <View style={{marginTop: 10, width: '100%'}}>
         <PersonalInfoComponent control={control} errors={errors} />
       </View>

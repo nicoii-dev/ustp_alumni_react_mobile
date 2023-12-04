@@ -6,22 +6,22 @@ import {
 } from 'react-native-responsive-screen';
 import {useNavigation} from '@react-navigation/native';
 import Header from '../../components/header/Header';
-import AnnouncementItem from '../../components/screen/annoucements/AnnouncementItem';
-import {FetchAllAnnouncements} from '../../library/api/announcementApi';
+import {FetchAllJobPosting} from '../../library/api/jobPostApi';
+import JobPostingItem from '../../components/screen/job-posting/JobPostingItem';
 
 const JobPostingScreen = () => {
   const navigation = useNavigation();
-  const [announcementData, setAnnouncement] = useState([]);
+  const [jobPostingData, setJobPosting] = useState([]);
   const fetchHandler = useCallback(async () => {
-    await FetchAllAnnouncements()
+    await FetchAllJobPosting()
       .then(async response => {
         console.log(response);
-        setAnnouncement(
+        setJobPosting(
           response.map(data => ({
             id: data.id,
-            images: data.announcement_images.map(data => data.url),
+            images: data.job_images.map(data => data.url),
             title: data.title,
-            announcement: data.announcement,
+            description: data.description,
             date: data.created_at,
           })),
         );
@@ -43,15 +43,15 @@ const JobPostingScreen = () => {
       <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
         <View style={{height: hp(77), marginBottom: 10, borderRadius: 10}}>
           <FlatList
-            data={announcementData}
+            data={jobPostingData}
             renderItem={({item, index}) => (
               <View key={index}>
-                <AnnouncementItem
+                <JobPostingItem
                   id={item.id}
                   images={item.images}
                   title={item.title}
                   date={item.date}
-                  announcement={item.announcement}
+                  description={item.description}
                 />
               </View>
             )}

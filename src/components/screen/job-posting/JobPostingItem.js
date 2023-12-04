@@ -5,51 +5,39 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
-import {useSelector} from 'react-redux';
-import {useNavigation} from '@react-navigation/native';
 import FastImage from 'react-native-fast-image';
-import {Icon} from '@rneui/themed';
-import COLORS from '../../config/constants/colors';
-import Header from '../../components/header/Header';
+import {useDispatch} from 'react-redux';
+import {useNavigation} from '@react-navigation/native';
+import COLORS from '../../../config/constants/colors';
+import {setJobPosting} from '../../../store/JobPostingSlice';
 
-const ViewJobPostingScreen = () => {
-  const {jobPosting} = useSelector(state => state.jobPosting);
+const JobPostingItem = ({id, images, title, description, date}) => {
+  const dispatch = useDispatch();
   const navigation = useNavigation();
+  const jobPostingHandler = () => {
+    const payload = {
+      id: id,
+      images: images,
+      title: title,
+      description: description,
+      date: date,
+    };
+    dispatch(setJobPosting(payload));
+    navigation.navigate('ViewJobPostingScreen');
+  };
   return (
     <View
       style={{
-        flex: 1,
-        width: wp('100%'),
+        borderRadius: 10,
+        width: wp('90%'),
         height: hp('35%'),
         marginBottom: 15,
         position: 'relative',
         backgroundColor: COLORS.white,
-        alignItems: 'center',
       }}>
       {/* <Card.Title>HELLO WORLD</Card.Title>
       <Card.Divider /> */}
-      <Header>
-        <View style={{alignItems: 'center'}}>
-          <View style={{position: 'absolute', left: 30, top: 1}}>
-            <TouchableOpacity
-              onPress={() => {
-                navigation.goBack();
-              }}>
-              <Icon name={'arrow-back'} size={30} color={COLORS.navyBlue} />
-            </TouchableOpacity>
-          </View>
-          <Text
-            style={{
-              fontFamily: 'Manrope-Bold',
-              fontSize: 20,
-              color: COLORS.navyBlue,
-              fontWeight: 'bold',
-            }}>
-            Job Posting
-          </Text>
-        </View>
-      </Header>
-      {jobPosting.images.length < 1 ? (
+      {images.length < 1 ? (
         <>
           <View
             style={{
@@ -71,7 +59,7 @@ const ViewJobPostingScreen = () => {
                 textDecorationLine: 'underline',
               }}
               numberOfLines={1}>
-              {jobPosting.title}
+              {title}
             </Text>
           </View>
           <View
@@ -92,7 +80,7 @@ const ViewJobPostingScreen = () => {
                 textAlign: 'center',
               }}
               numberOfLines={8}>
-              {jobPosting.description}
+              {description}
             </Text>
           </View>
         </>
@@ -101,12 +89,13 @@ const ViewJobPostingScreen = () => {
           <FastImage
             // @ts-ignore
             source={{
-              uri: `http://localhost:8000/storage/${jobPosting.images[0]}`,
+              uri: `http://localhost:8000/storage/${images[0]}`,
             }}
             style={{
               height: '50%',
-              width: '95%',
-              borderRadius: 5,
+              width: '100%',
+              borderTopLeftRadius: 10,
+              borderTopRightRadius: 10,
             }}
             resizeMode="stretch"
           />
@@ -130,7 +119,7 @@ const ViewJobPostingScreen = () => {
                 textDecorationLine: 'underline',
               }}
               numberOfLines={1}>
-              {jobPosting.title}
+              {title}
             </Text>
           </View>
           <View style={{marginTop: 5}}>
@@ -144,13 +133,30 @@ const ViewJobPostingScreen = () => {
                 textAlign: 'center',
               }}
               numberOfLines={3}>
-              {jobPosting.description}
+              {description}
             </Text>
           </View>
         </>
       )}
+      <View style={{position: 'absolute', bottom: 2, alignSelf: 'center'}}>
+        <TouchableOpacity
+          style={{
+            width: wp(50),
+            height: hp(4),
+            backgroundColor: COLORS.blue,
+            alignItems: 'center',
+            justifyContent: 'center',
+            borderRadius: 5,
+            bottom: hp(1),
+          }}
+          onPress={jobPostingHandler}>
+          <Text style={{color: COLORS.white, fontFamily: 'Roboto-Bold'}}>
+            View
+          </Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
 
-export default ViewJobPostingScreen;
+export default JobPostingItem;
