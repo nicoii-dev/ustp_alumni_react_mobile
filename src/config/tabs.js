@@ -1,23 +1,21 @@
-import HomeScreen from '../screens/home/HomeScreen';
-import AnnouncementsScreen from '../screens/announcements/AnnouncementsScreen';
+import AnnouncementStack from '../navigations/stack/Announcement';
 import EventsScreen from '../screens/events/EventsScreen';
-import FreedomWallScreen from '../screens/freedom-wall/FreedomWallScreen';
+import PostStack from '../navigations/stack/Post';
 import ProfileScreen from '../screens/profile/ProfileScreen';
 
 export const UserTabs = [
-
   {
-    name: 'Freedom Wall',
-    component: FreedomWallScreen,
+    name: 'PostStack',
+    component: PostStack,
     iconName: 'notes',
   },
   {
     name: 'Announcements',
-    component: AnnouncementsScreen,
+    component: AnnouncementStack,
     iconName: 'campaign',
   },
   {
-    name: 'Events',
+    name: 'Job Posting',
     component: EventsScreen,
     iconName: 'emoji-events',
   },

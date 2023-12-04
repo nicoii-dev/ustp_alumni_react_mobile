@@ -39,9 +39,11 @@ const LoginComponent = () => {
   });
 
   const onSubmit = async data => {
+    console.log(data)
     dispatch(loadingStart());
     try {
       const response = await UserLogin(data);
+      console.log(response)
       dispatch(loadingFinish());
       if (!_.isUndefined(response)) {
         return navigation.navigate('UserTab');

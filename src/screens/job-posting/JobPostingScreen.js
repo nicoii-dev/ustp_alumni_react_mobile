@@ -9,7 +9,7 @@ import Header from '../../components/header/Header';
 import AnnouncementItem from '../../components/screen/annoucements/AnnouncementItem';
 import {FetchAllAnnouncements} from '../../library/api/announcementApi';
 
-const AnnouncementsScreen = () => {
+const JobPostingScreen = () => {
   const navigation = useNavigation();
   const [announcementData, setAnnouncement] = useState([]);
   const fetchHandler = useCallback(async () => {
@@ -65,4 +65,4 @@ const AnnouncementsScreen = () => {
   );
 };
 
-export default AnnouncementsScreen;
+export default JobPostingScreen;

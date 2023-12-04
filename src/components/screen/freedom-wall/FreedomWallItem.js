@@ -1,27 +1,29 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
-import {View, Text, TouchableOpacity} from 'react-native';
+import {View, Text, Pressable} from 'react-native';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
+import {FlatList} from 'react-native-gesture-handler';
 import FastImage from 'react-native-fast-image';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import moment from 'moment';
+import {useNavigation} from '@react-navigation/native';
 
 // components
 import COLORS from '../../../config/constants/colors';
 import UstpImages from '../../../config/images/ustp-images';
 
-
 const FreedomWallItem = ({id, user, images, title, date}) => {
-  console.log('1test', images);
+  const navigation = useNavigation();
   return (
     <View
       style={{
         borderRadius: 10,
         width: wp('90%'),
-        height: hp('50%'),
+        height: images.length <= 0 ? hp('25') : hp('50'),
+        maxHeight: images.length <= 0 ? hp('25') : hp('50'),
         marginBottom: 15,
         position: 'relative',
         backgroundColor: COLORS.white,
@@ -54,59 +56,107 @@ const FreedomWallItem = ({id, user, images, title, date}) => {
               fontFamily: 'Roboto-Regular',
               fontSize: 10,
             }}>
-            {moment(date).format("LLL")}
+            {moment(date).format('LLL')}
           </Text>
         </View>
       </View>
-
-      {images?.map((data, index) => {
-        <>
-          <FastImage
-            key={index}
-            source={{
-              uri: `http://localhost:8000/storage/images/resource/edpkKjNjfRpqBDn9l6rYxr2lYewhj870316PtjxN.png`,
-            }}
-            style={{
-              height: '45%',
-              width: '100%',
-            }}
-            resizeMode="stretch"
-          />
-          <View style={{marginTop: 5}}>
-            <Text
-              style={{
-                marginBottom: 10,
-                paddingLeft: 10,
-                paddingRight: 10,
-                fontFamily: 'Roboto-Regular',
-                color: COLORS.black,
-              }}
-              numberOfLines={5}>
-              {title}
-            </Text>
-          </View>
-        </>;
-      })}
-
-      <View
-        style={{
-          backgroundColor: COLORS.black,
-          height: hp('30%'),
-          justifyContent: 'center',
-        }}>
+      <View style={{marginTop: 5}}>
         <Text
           style={{
-            padding: 10,
-            fontFamily: 'Roboto-Bold',
-            color: COLORS.white,
-            textAlign: 'center',
-            fontSize: hp(3),
+            marginBottom: 10,
+            paddingLeft: 20,
+            paddingRight: 10,
+            fontFamily: 'Roboto-Regular',
+            color: COLORS.black,
           }}
-          numberOfLines={5}>
+          numberOfLines={4}>
           {title}
         </Text>
+        {images.length < 1 ? (
+          <Pressable>
+            <Text
+              style={{
+                alignSelf: 'flex-end',
+                textDecorationLine: 'underline',
+                position: 'absolute',
+                top: -8,
+                right: 20,
+              }}>
+              See more...
+            </Text>
+          </Pressable>
+        ) : null}
       </View>
+      {images.length <= 1
+        ? images?.map((data, index) => {
+            return (
+              <FastImage
+                key={index}
+                source={{
+                  uri: `http://localhost:8000/storage/${data}`,
+                }}
+                style={{
+                  height: '45%',
+                  width: '100%',
+                }}
+                resizeMode="contain"
+              />
+            );
+          })
+        : null}
 
+      {images.length > 1 && images.length <= 2 ? (
+        <View style={{flex: 1, flexDirection: 'row'}}>
+          {images?.map((data, index) => {
+            return (
+              <FastImage
+                key={index}
+                source={{
+                  uri: `http://localhost:8000/storage/${data}`,
+                }}
+                style={{
+                  height: hp('30'),
+                  width: '50%',
+                }}
+                resizeMode="contain"
+              />
+            );
+          })}
+        </View>
+      ) : null}
+
+      {images.length > 2 ? (
+        <FlatList
+          data={images.slice(0, 4)}
+          renderItem={({item, index}) => (
+            <View
+              style={{
+                flex: 1,
+                margin: 1,
+              }}>
+              <Pressable
+                onPress={() =>
+                  navigation.navigate('ViewPostScreen', {postId: id})
+                }>
+                <FastImage
+                  key={index}
+                  source={{
+                    uri: `http://localhost:8000/storage/${item}`,
+                  }}
+                  style={{
+                    height: hp('15%'),
+                    width: '100%',
+                  }}
+                  resizeMode="stretch"
+                />
+              </Pressable>
+            </View>
+          )}
+          //Setting the number of column
+          numColumns={2}
+          keyExtractor={(item, index) => index}
+        />
+      ) : null}
       <View
         style={{
           position: 'absolute',

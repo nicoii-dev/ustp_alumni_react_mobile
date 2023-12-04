@@ -23,16 +23,16 @@ export const FetchAllPost = async () => {
   }
 };
 
-export const CreatePost = async id => {
+export const CreatePost = async payload => {
   try {
     const token = await useStorage.getItem(USER.ACCESS_TOKEN);
     const response = await axios.post(
-      `${process.env.REACT_APP_API_LOCAL_URL}/user-citationlist/${id}`,
-      {},
+      `http://localhost:8000/api/post/create/`,
+      payload,
       {
         headers: {
           Accept: 'application/json',
-          'Content-Type': 'application/json',
+          "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${token}`,
         },
       },
@@ -44,6 +44,30 @@ export const CreatePost = async id => {
       Toast.LONG,
       Toast.CENTER,
     );
+  }
+};
+
+export const ViewPost = async id => {
+  try {
+    const token = await useStorage.getItem(USER.ACCESS_TOKEN);
+    const response = await axios.post(
+      `http://localhost:8000/api/post/view/${id}`,
+      {},
+      {
+        headers: {
+          Accept: 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    );
+    return response.data;
+  } catch (error) {
+    console.log(error)
+    // Toast.showWithGravity(
+    //   error.response.data.message,
+    //   Toast.LONG,
+    //   Toast.CENTER,
+    // );
   }
 };
 
