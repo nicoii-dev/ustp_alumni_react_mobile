@@ -4,6 +4,7 @@ import {
   heightPercentageToDP,
   widthPercentageToDP,
 } from 'react-native-responsive-screen';
+import COLORS from '../../../config/constants/colors';
 
 const OverlayStyle = StyleSheet.create({
   overlayStyle: {
@@ -19,12 +20,15 @@ const OverlayStyle = StyleSheet.create({
     position: 'absolute',
   },
   titleContainer: {
-    marginBottom: heightPercentageToDP(2),
+    marginBottom: heightPercentageToDP(7),
   },
   titleText: {
+    padding: 10,
     fontFamily: 'Manrope-ExtraBold',
     fontSize: 20,
     textAlign: 'center',
+    color: COLORS.navyBlue,
+    fontWeight: 'bold',
   },
   messageContainer: {
     marginBottom: heightPercentageToDP(0),

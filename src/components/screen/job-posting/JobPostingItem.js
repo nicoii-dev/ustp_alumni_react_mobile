@@ -89,7 +89,7 @@ const JobPostingItem = ({id, images, title, description, date}) => {
           <FastImage
             // @ts-ignore
             source={{
-              uri: `http://localhost:8000/storage/${images[0]}`,
+              uri: `https://ustpalumnilaravelapi-production.up.railway.app/storage/${images[0]}`,
             }}
             style={{
               height: '50%',

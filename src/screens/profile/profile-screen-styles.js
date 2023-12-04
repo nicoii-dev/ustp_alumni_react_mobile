@@ -1,8 +1,9 @@
 import {StyleSheet} from 'react-native';
 import {
-  heightPercentageToDP as hp,
+  // heightPercentageToDP as hp,
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
+import COLORS from '../../config/constants/colors';
 
 const ProfileScreenStyle = StyleSheet.create({
   container: {
@@ -12,13 +13,15 @@ const ProfileScreenStyle = StyleSheet.create({
     backgroundColor: '#0A2647',
   },
   accountSettingsContainer: {
+    marginTop: 20,
     alignSelf: 'flex-start',
     padding: wp(5),
+    paddingBottom: 0,
   },
   accountSettingsText: {
     fontSize: 20,
     fontFamily: 'Manrope-Bold',
-    color: 'black',
+    color: COLORS.navyBlue,
   },
   personalContainer: {
     alignSelf: 'flex-end',
@@ -31,7 +34,7 @@ const ProfileScreenStyle = StyleSheet.create({
     fontSize: 16,
     paddingRight: wp(20),
     fontFamily: 'Manrope-Regular',
-    color: 'black',
+    color: COLORS.navyBlue,
   },
   securityContainer: {
     alignSelf: 'flex-start',
@@ -44,7 +47,7 @@ const ProfileScreenStyle = StyleSheet.create({
     fontSize: 16,
     paddingRight: wp(20),
     fontFamily: 'Manrope-Regular',
-    color: 'black',
+    color: COLORS.navyBlue,
   },
   icon: {
     flex: 1,

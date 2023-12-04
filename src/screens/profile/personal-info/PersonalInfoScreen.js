@@ -20,6 +20,7 @@ import {UpdateProfile} from '../../../library/api/userApi';
 
 // redux
 import {loadingStart, loadingFinish} from '../../../store/loader/LoaderSlice';
+import COLORS from '../../../config/constants/colors';
 
 const PersonalInfoScreen = () => {
   const navigation = useNavigation();
@@ -104,7 +105,7 @@ const PersonalInfoScreen = () => {
         <Icon
           name={'arrow-back'}
           size={30}
-          color={'white'}
+          color={COLORS.navyBlue}
           style={{position: 'absolute', left: 30}}
           onPress={() => navigation.goBack()}
         />
@@ -117,7 +118,7 @@ const PersonalInfoScreen = () => {
             style={{
               fontFamily: 'Manrope-Bold',
               fontSize: 25,
-              color: 'white',
+              color: COLORS.navyBlue,
               textAlign: 'center',
             }}>
             {`Personal \nInformation`}
@@ -138,6 +139,7 @@ const PersonalInfoScreen = () => {
           position: 'absolute',
         }}>
         <ButtonComponent
+          disabled
           onPress={handleSubmit(onSubmit)}
           color="#2C74B3"
           size="lg"

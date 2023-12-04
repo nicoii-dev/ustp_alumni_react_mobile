@@ -20,6 +20,7 @@ import {USER} from '../../../library/constants';
 
 // api
 import {ChangePassword} from '../../../library/api/userApi';
+import COLORS from '../../../config/constants/colors';
 
 const SecurityScreen = () => {
   const navigation = useNavigation();
@@ -80,7 +81,7 @@ const SecurityScreen = () => {
         <Icon
           name={'arrow-back'}
           size={30}
-          color={'white'}
+          color={COLORS.navyBlue}
           style={{position: 'absolute', left: 30}}
           onPress={() => navigation.goBack()}
         />
@@ -93,7 +94,7 @@ const SecurityScreen = () => {
             style={{
               fontFamily: 'Manrope-Bold',
               fontSize: 25,
-              color: 'white',
+              color: COLORS.navyBlue,
               textAlign: 'center',
             }}>
             Security
@@ -114,6 +115,7 @@ const SecurityScreen = () => {
           position: 'absolute',
         }}>
         <ButtonComponent
+          disabled
           onPress={handleSubmit(onSubmit)}
           color="#2C74B3"
           size="lg"

@@ -93,7 +93,7 @@ const FreedomWallItem = ({id, user, images, title, date}) => {
               <FastImage
                 key={index}
                 source={{
-                  uri: `http://localhost:8000/storage/${data}`,
+                  uri: `https://ustpalumnilaravelapi-production.up.railway.app/storage/${data}`,
                 }}
                 style={{
                   height: '45%',
@@ -112,7 +112,7 @@ const FreedomWallItem = ({id, user, images, title, date}) => {
               <FastImage
                 key={index}
                 source={{
-                  uri: `http://localhost:8000/storage/${data}`,
+                  uri: `https://ustpalumnilaravelapi-production.up.railway.app/storage/${data}`,
                 }}
                 style={{
                   height: hp('30'),
@@ -141,7 +141,7 @@ const FreedomWallItem = ({id, user, images, title, date}) => {
                 <FastImage
                   key={index}
                   source={{
-                    uri: `http://localhost:8000/storage/${item}`,
+                    uri: `https://ustpalumnilaravelapi-production.up.railway.app/storage/${item}`,
                   }}
                   style={{
                     height: hp('15%'),

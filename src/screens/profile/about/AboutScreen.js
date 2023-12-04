@@ -4,6 +4,7 @@ import React from 'react';
 import {useNavigation} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Header from '../../../components/header/Header';
+import COLORS from '../../../config/constants/colors';
 
 const AboutScreen = () => {
   const navigation = useNavigation();
@@ -19,7 +20,7 @@ const AboutScreen = () => {
         <Icon
           name={'arrow-back'}
           size={30}
-          color={'white'}
+          color={COLORS.navyBlue}
           style={{position: 'absolute', left: 30}}
           onPress={() => navigation.goBack()}
         />
@@ -32,7 +33,7 @@ const AboutScreen = () => {
             style={{
               fontFamily: 'Manrope-Bold',
               fontSize: 25,
-              color: 'white',
+              color: COLORS.navyBlue,
               textAlign: 'center',
             }}>
             About

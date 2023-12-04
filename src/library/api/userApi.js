@@ -7,7 +7,7 @@ import Toast from 'react-native-simple-toast';
 export const UserLogin = async payload => {
   try {
     const response = await axios.post(
-      `http://localhost:8000/api/auth/login`,
+      `https://ustpalumnilaravelapi-production.up.railway.app/api/auth/login`,
       payload,
     );
     console.log(payload);

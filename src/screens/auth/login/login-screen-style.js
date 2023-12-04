@@ -4,13 +4,14 @@ import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
+import COLORS from '../../../config/constants/colors';
 
 const LoginScreenStyles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
     // justifyContent: 'center',
-    backgroundColor: '#0A2647',
+    backgroundColor: COLORS.skyBlue,
   },
   formWrapper: {
     height: hp('60%'),

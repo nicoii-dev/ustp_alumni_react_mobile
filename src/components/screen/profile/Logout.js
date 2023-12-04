@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable prettier/prettier */
 import {View, Text} from 'react-native';
 import React from 'react';
@@ -29,11 +30,11 @@ const LogoutOverlay = props => {
       overlayStyle={OverlayStyle.overlayStyle}>
       <View style={OverlayStyle.container}>
         <View style={OverlayStyle.titleContainer}>
-          <Text style={OverlayStyle.titleText}>{props.title}</Text>
+          <Text style={[OverlayStyle.titleText, props.titleStyle]}>{props.title}</Text>
         </View>
-        <View style={OverlayStyle.messageContainer}>
+        {/* <View style={OverlayStyle.messageContainer}>
           <Text style={OverlayStyle.messageText}>{props.message}</Text>
-        </View>
+        </View> */}
         <ButtonComponent
           onPress={() => {
             logoutHandler();

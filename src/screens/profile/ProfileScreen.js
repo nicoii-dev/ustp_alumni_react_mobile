@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable react-native/no-inline-styles */
 import {View, Text, TouchableOpacity} from 'react-native';
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import FastImage from 'react-native-fast-image';
 import {useNavigation} from '@react-navigation/native';
@@ -21,7 +21,8 @@ const ProfileScreen = () => {
 
   return (
     <View style={{flex: 1, alignItems: 'center'}}>
-      <Header height={300}>
+      <Header />
+      <View style={{width: '100%', marginTop: 30}}>
         <View style={{alignItems: 'center'}}>
           <FastImage
             source={UstpImages.ustpLogo}
@@ -36,21 +37,19 @@ const ProfileScreen = () => {
             style={{
               fontFamily: 'Manrope-Bold',
               fontSize: 18,
-              color: 'white',
+              color: COLORS.navyBlue,
             }}>
-            Traffic Enforcer
+            John Doe
           </Text>
           <Text
             style={{
               fontFamily: 'Manrope-Regular',
               fontSize: 14,
-              color: 'white',
+              color: COLORS.navyBlue,
             }}>
-            trafficenforcer@gmail.com
+            johndoe@gmail.com
           </Text>
         </View>
-      </Header>
-      <View style={{width: '100%'}}>
         <View style={ProfileScreenStyle.accountSettingsContainer}>
           <Text style={ProfileScreenStyle.accountSettingsText}>
             Account Settings
@@ -66,7 +65,7 @@ const ProfileScreen = () => {
               <Icon
                 name={'arrow-forward-ios'}
                 size={20}
-                color={'black'}
+                color={COLORS.navyBlue}
                 style={ProfileScreenStyle.icon}
               />
             </View>
@@ -78,7 +77,7 @@ const ProfileScreen = () => {
               <Icon
                 name={'arrow-forward-ios'}
                 size={20}
-                color={'black'}
+                color={COLORS.navyBlue}
                 style={ProfileScreenStyle.icon}
               />
             </View>
@@ -89,7 +88,7 @@ const ProfileScreen = () => {
               <Icon
                 name={'arrow-forward-ios'}
                 size={20}
-                color={'black'}
+                color={COLORS.navyBlue}
                 style={ProfileScreenStyle.icon}
               />
             </View>
@@ -98,7 +97,9 @@ const ProfileScreen = () => {
       </View>
       <View style={{position: 'absolute', bottom: 20, width: '50%'}}>
         <ButtonComponent
-          onPress={() => {setIsVisible(true)}}
+          onPress={() => {
+            setIsVisible(true);
+          }}
           color={COLORS.DARK_BLUE}
           size="lg"
           styles={{}}>
@@ -108,7 +109,11 @@ const ProfileScreen = () => {
         </ButtonComponent>
       </View>
 
-      <LogoutOverlay isVisible={isVisible} setIsVisible={setIsVisible} title={'Are you sure you want to Logout?'} />
+      <LogoutOverlay
+        isVisible={isVisible}
+        setIsVisible={setIsVisible}
+        title={'Are you sure you want to Logout?'}
+      />
     </View>
   );
 };
