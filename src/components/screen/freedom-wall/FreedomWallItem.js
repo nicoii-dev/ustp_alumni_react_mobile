@@ -90,17 +90,27 @@ const FreedomWallItem = ({id, user, images, title, date}) => {
       {images.length <= 1
         ? images?.map((data, index) => {
             return (
-              <FastImage
+              <Pressable
                 key={index}
-                source={{
-                  uri: `https://ustpalumnilaravelapi-production.up.railway.app/storage/${data}`,
-                }}
                 style={{
-                  height: '45%',
+                  height: hp('30'),
                   width: '100%',
                 }}
-                resizeMode="contain"
-              />
+                onPress={() =>
+                  navigation.navigate('ViewPostScreen', {postId: id})
+                }>
+                <FastImage
+                  source={{
+                    uri: `https://ustpalumnilaravelapi-production.up.railway.app/storage/${data}`,
+                  }}
+                  alt={title}
+                  style={{
+                    height: '100%',
+                    width: '100%',
+                  }}
+                  resizeMode="contain"
+                />
+              </Pressable>
             );
           })
         : null}
@@ -109,17 +119,27 @@ const FreedomWallItem = ({id, user, images, title, date}) => {
         <View style={{flex: 1, flexDirection: 'row'}}>
           {images?.map((data, index) => {
             return (
-              <FastImage
+              <Pressable
                 key={index}
-                source={{
-                  uri: `https://ustpalumnilaravelapi-production.up.railway.app/storage/${data}`,
-                }}
                 style={{
                   height: hp('30'),
-                  width: '50%',
+                  width: '100%',
                 }}
-                resizeMode="contain"
-              />
+                onPress={() =>
+                  navigation.navigate('ViewPostScreen', {postId: id})
+                }>
+                <FastImage
+                  key={index}
+                  source={{
+                    uri: `https://ustpalumnilaravelapi-production.up.railway.app/storage/${data}`,
+                  }}
+                  style={{
+                    height: '100%',
+                    width: '50%',
+                  }}
+                  resizeMode="contain"
+                />
+              </Pressable>
             );
           })}
         </View>
