@@ -101,7 +101,7 @@ const ViewAnnouncementScreen = () => {
           <FastImage
             // @ts-ignore
             source={{
-              uri: `https://ustpalumnilaravelapi-production.up.railway.app/storage/${announcement.images[0]}`,
+              uri: `http://localhost:8000/storage/${announcement.images[0]}`,
             }}
             style={{
               height: '50%',

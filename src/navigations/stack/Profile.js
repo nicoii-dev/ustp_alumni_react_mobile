@@ -6,7 +6,9 @@ import {createStackNavigator} from '@react-navigation/stack';
 import ProfileScreen from '../../screens/profile/ProfileScreen';
 import PersonalInfoScreen from '../../screens/profile/personal-info/PersonalInfoScreen';
 import SecurityScreen from '../../screens/profile/security/SecurityScreen';
-import AboutScreen from '../../screens/profile/about/AboutScreen';
+import EducationalScreen from '../../screens/profile/educational/EducationScreen';
+import TrainingsScreen from '../../screens/profile/trainings/TraingsScreen';
+import JobHistoryScreen from '../../screens/profile/job-history/JobHistoryScreen';
 
 // stack instance
 const ProfileStack = createStackNavigator();
@@ -35,8 +37,18 @@ const Profile = () => {
           options={{headerShown: false}}
         />
         <ProfileStack.Screen
-          name="AboutScreen"
-          component={AboutScreen}
+          name="EducationalScreen"
+          component={EducationalScreen}
+          options={{headerShown: false}}
+        />
+        <ProfileStack.Screen
+          name="TrainingsScreen"
+          component={TrainingsScreen}
+          options={{headerShown: false}}
+        />
+        <ProfileStack.Screen
+          name="JobHistoryScreen"
+          component={JobHistoryScreen}
           options={{headerShown: false}}
         />
       </ProfileStack.Navigator>

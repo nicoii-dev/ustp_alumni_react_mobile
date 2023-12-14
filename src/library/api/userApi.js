@@ -7,7 +7,7 @@ import Toast from 'react-native-simple-toast';
 export const UserLogin = async payload => {
   try {
     const response = await axios.post(
-      `https://ustpalumnilaravelapi-production.up.railway.app/api/auth/login`,
+      `http://localhost:8000/api/auth/login`,
       payload,
     );
     console.log(payload);
@@ -31,7 +31,7 @@ export const UpdateProfile = async (payload, id) => {
   try {
     // await useStorage.removeItem(USER.USER_DATA)
     const response = await axios.put(
-      `${process.env.REACT_APP_API_LOCAL_URL}/update-user/${id}`,
+      `http://localhost:8000/update-user/${id}`,
       payload,
       {
         headers: {
@@ -58,7 +58,7 @@ export const ChangePassword = async payload => {
   try {
     // await useStorage.removeItem(USER.USER_DATA)
     const response = await axios.post(
-      `${process.env.REACT_APP_API_LOCAL_URL}/change-password`,
+      `http://localhost:8000/api/auth/change-password`,
       payload,
       {
         headers: {

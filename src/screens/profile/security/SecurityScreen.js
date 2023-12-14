@@ -115,7 +115,6 @@ const SecurityScreen = () => {
           position: 'absolute',
         }}>
         <ButtonComponent
-          disabled
           onPress={handleSubmit(onSubmit)}
           color="#2C74B3"
           size="lg"

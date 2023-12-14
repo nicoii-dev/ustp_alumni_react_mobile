@@ -15,6 +15,8 @@ const PersonalInfoComponent = ({control, errors}) => {
         placeholder={'First name'}
         errorMessage={errors?.firstName?.message}
         errorStyle={{color: 'red'}}
+        editable={false}
+        inputStyle={{textTransform: 'capitalize'}}
       />
       <TextInputController
         headerTitle={'Middle name'}
@@ -23,6 +25,8 @@ const PersonalInfoComponent = ({control, errors}) => {
         placeholder={'Middle name'}
         errorMessage={errors?.middleName?.message}
         errorStyle={{color: 'red'}}
+        editable={false}
+        inputStyle={{textTransform: 'capitalize'}}
       />
       <TextInputController
         headerTitle={'Last name'}
@@ -31,6 +35,8 @@ const PersonalInfoComponent = ({control, errors}) => {
         placeholder={'Last name'}
         errorMessage={errors?.lastName?.message}
         errorStyle={{color: 'red'}}
+        editable={false}
+        inputStyle={{textTransform: 'capitalize'}}
       />
       <View>
         <PickerInputController

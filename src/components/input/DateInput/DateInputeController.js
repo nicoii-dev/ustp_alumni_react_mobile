@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable prettier/prettier */
 /* eslint-disable react-native/no-inline-styles */
 import React, {useState} from 'react';
@@ -12,7 +13,6 @@ const DateInputController = ({
   name,
   control,
   rules,
-  styles,
   headerTitle,
   headerStyles,
   display,

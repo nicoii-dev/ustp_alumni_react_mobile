@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import {View, Text} from 'react-native';
 import React, {useCallback, useEffect, useState} from 'react';
 import {useForm} from 'react-hook-form';
@@ -129,7 +130,7 @@ const PersonalInfoScreen = () => {
         <PersonalInfoComponent control={control} errors={errors} />
       </View>
 
-      <View
+      {/* <View
         style={{
           alignItems: 'center',
           justifyContent: 'center',
@@ -146,7 +147,7 @@ const PersonalInfoScreen = () => {
           styles={{width: '50%'}}>
           <Text style={{color: 'white', fontFamily: 'Manrope-Bold'}}>Save</Text>
         </ButtonComponent>
-      </View>
+      </View> */}
     </View>
   );
 };
