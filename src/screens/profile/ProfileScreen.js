@@ -30,14 +30,14 @@ const ProfileScreen = () => {
   useEffect(() => {
     getUser()
   }, [getUser])
-
+  console.log(user)
   return (
     <View style={{flex: 1, alignItems: 'center'}}>
       <Header />
       <View style={{width: '100%', marginTop: 30}}>
         <View style={{alignItems: 'center'}}>
           <FastImage
-            source={UstpImages.ustpLogo}
+            source={user?.image ? {uri:`http://localhost:8000/storage/${user.image}`} : UstpImages.ustpLogo}
             style={{
               height: 100,
               width: 100,
@@ -106,9 +106,31 @@ const ProfileScreen = () => {
               />
             </View>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate('TrainingsScreen')}>
+          <TouchableOpacity onPress={() => navigation.navigate('AchievementsScreen')}>
+            <View style={ProfileScreenStyle.securityContainer}>
+              <Text style={ProfileScreenStyle.securityText}>Achievements</Text>
+              <Icon
+                name={'arrow-forward-ios'}
+                size={20}
+                color={COLORS.navyBlue}
+                style={ProfileScreenStyle.icon}
+              />
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('TrainingsStack')}>
             <View style={ProfileScreenStyle.securityContainer}>
               <Text style={ProfileScreenStyle.securityText}>Trainings</Text>
+              <Icon
+                name={'arrow-forward-ios'}
+                size={20}
+                color={COLORS.navyBlue}
+                style={ProfileScreenStyle.icon}
+              />
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('EmploymentDetailsScreen')}>
+            <View style={ProfileScreenStyle.securityContainer}>
+              <Text style={ProfileScreenStyle.securityText}>Employment Details</Text>
               <Icon
                 name={'arrow-forward-ios'}
                 size={20}

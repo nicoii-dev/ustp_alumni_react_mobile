@@ -6,25 +6,24 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import Header from '../../../components/header/Header';
 import COLORS from '../../../config/constants/colors';
 import moment from 'moment';
-import {FetchJobHistory} from '../../../library/api/jobHistoryApi';
-import JobHistoryItem from './item';
+import AchievementItem from './item';
+import { FetchAllAchievements } from '../../../library/api/achievementsApi';
 
-const JobHistoryScreen = () => {
+const AchievementsScreen = () => {
   const navigation = useNavigation();
-  const [jobHistoryData, setJobData] = useState([])
+  const [trainingsData, setTrainingsData] = useState([]);
 
-  const getJobHistory = useCallback(async () => {
-    await FetchJobHistory()
+  const getAchievements = useCallback(async () => {
+    await FetchAllAchievements()
       .then(async response => {
         console.log(response);
-        setJobData(
+        setTrainingsData(
           response.map(data => ({
-            company: data.company,
-            position: data.position,
-            dateStarted: moment(data.date_started).format('LL'),
-            dateEnded: moment(data.date_ended).format('LL'),
-            salary: data.salary,
-            status: data.status,
+            id: data.id,
+            title: data.title,
+            category: data.category,
+            date: moment(data.date).format('LL'),
+            description: data.description,
           })),
         );
       })
@@ -34,8 +33,10 @@ const JobHistoryScreen = () => {
   }, []);
 
   useEffect(() => {
-    getJobHistory();
-  }, [getJobHistory]);
+    navigation.addListener('focus', () => {
+      getAchievements();
+    });
+  }, [getAchievements, navigation]);
 
   return (
     <View
@@ -65,7 +66,7 @@ const JobHistoryScreen = () => {
               color: COLORS.navyBlue,
               textAlign: 'center',
             }}>
-            Job History
+            Achievements
           </Text>
         </View>
         {/* <Icon
@@ -76,18 +77,17 @@ const JobHistoryScreen = () => {
           onPress={() => navigation.navigate('AddTrainingsScreen')}
         /> */}
       </Header>
-      {jobHistoryData.length > 0 ? (
+      {trainingsData.length > 0 ? (
         <FlatList
-          data={jobHistoryData}
+          data={trainingsData}
           renderItem={({item, index}) => (
             <View key={index}>
-              <JobHistoryItem
-                company={item.company}
-                position={item.position}
-                dateStarted={item.dateStarted}
-                dateEnded={item.dateEnded}
-                salary={item.salary}
-                status={item.status}
+              <AchievementItem
+                id={item.id}
+                title={item.title}
+                category={item.category}
+                date={item.date}
+                description={item.description}
               />
             </View>
           )}
@@ -107,4 +107,4 @@ const JobHistoryScreen = () => {
   );
 };
 
-export default JobHistoryScreen;
+export default AchievementsScreen;

@@ -2,25 +2,16 @@
 import {View, Text} from 'react-native';
 import React from 'react';
 import itemStyle from './itemStyle';
-const JobHistoryItem = ({
-  company,
-  position,
-  dateStarted,
-  dateEnded,
-  salary,
-  status,
-}) => {
+const AchievementItem = ({title, category, date, description}) => {
   return (
     <View style={itemStyle.viewContainer}>
       <View style={{flexDirection: 'row', gap: 5}}>
         <View>
           <Text style={itemStyle.itemData}>
-            {`Company:\n`}
-            {`Position:\n`}
-            {`Date Started:\n`}
-            {`Date Ended:\n`}
-            {`Salary:\n`}
-            {`Status:\n`}
+            {`Title:\n`}
+            {`Category:\n`}
+            {`Date:\n`}
+            {`Description:\n`}
           </Text>
         </View>
         <View>
@@ -32,12 +23,10 @@ const JobHistoryItem = ({
               fontWeight: '700',
               textTransform: 'capitalize',
             }}>
-            {`${company}\n`}
-            {`${position}\n`}
-            {`${dateStarted} \n`}
-            {`${dateEnded} \n`}
-            {`${salary} \n`}
-            {`${status} \n`}
+            {`${title}\n`}
+            {`${category}\n`}
+            {`${date} \n`}
+            {`${description} \n`}
           </Text>
         </View>
       </View>
@@ -45,4 +34,4 @@ const JobHistoryItem = ({
   );
 };
 
-export default JobHistoryItem;
+export default AchievementItem;

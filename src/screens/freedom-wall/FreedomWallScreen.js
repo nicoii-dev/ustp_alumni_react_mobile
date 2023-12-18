@@ -1,4 +1,4 @@
-import {View, SafeAreaView, FlatList} from 'react-native';
+import {View, SafeAreaView, FlatList, Text} from 'react-native';
 import React, {useState, useEffect, useCallback} from 'react';
 import {heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import {useNavigation} from '@react-navigation/native';
@@ -42,23 +42,31 @@ const FreedomWallScreen = () => {
       <Header />
       <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
         <View style={{height: hp(77), marginBottom: 10, borderRadius: 10}}>
-          <FlatList
-            data={post}
-            renderItem={({item, index}) => (
-              <View key={index}>
-                <FreedomWallItem
-                  id={item.id}
-                  user={item.user}
-                  images={item.images}
-                  title={item.title}
-                  date={item.date}
-                />
+          {post.length > 0 ? (
+            <FlatList
+              data={post}
+              renderItem={({item, index}) => (
+                <View key={index}>
+                  <FreedomWallItem
+                    id={item.id}
+                    user={item.user}
+                    images={item.images}
+                    title={item.title}
+                    date={item.date}
+                  />
+                </View>
+              )}
+              keyExtractor={item => item.id}
+              showsVerticalScrollIndicator={false}
+              showsHorizontalScrollIndicator={false}
+            />
+          ) : (
+            <View style={{flex: 1, justifyContent: 'center'}}>
+              <View style={{}}>
+                <Text style={{fontSize: 18}}>No Post Available</Text>
               </View>
-            )}
-            keyExtractor={item => item.id}
-            showsVerticalScrollIndicator={false}
-            showsHorizontalScrollIndicator={false}
-          />
+            </View>
+          )}
         </View>
       </View>
     </SafeAreaView>

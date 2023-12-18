@@ -1,32 +1,22 @@
 /* eslint-disable prettier/prettier */
-import {View, Text, FlatList} from 'react-native';
+import {View, Text} from 'react-native';
 import React, {useCallback, useEffect, useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Header from '../../../components/header/Header';
 import COLORS from '../../../config/constants/colors';
-import {FetchTrainings} from '../../../library/api/trainingsApi';
-import moment from 'moment';
-import TrainingItem from './item';
+import EmploymentItem from './item';
+import {FetchAllEmploymentDetails} from '../../../library/api/employmentApi';
 
-const TrainingsScreen = () => {
+const EmploymentDetailsScreen = () => {
   const navigation = useNavigation();
-  const [trainingsData, setTrainingsData] = useState([]);
+  const [employment, setEmployment] = useState(null);
 
   const getTrainings = useCallback(async () => {
-    await FetchTrainings()
+    await FetchAllEmploymentDetails()
       .then(async response => {
         console.log(response);
-        setTrainingsData(
-          response.map(data => ({
-            id: data.id,
-            title: data.title,
-            topic: data.topic,
-            date: moment(data.date).format('LL'),
-            duration: data.duration,
-            institution: data.institution,
-          })),
-        );
+        setEmployment(response);
       })
       .finally(() => {
         setTimeout(() => {}, 2000);
@@ -67,46 +57,20 @@ const TrainingsScreen = () => {
               color: COLORS.navyBlue,
               textAlign: 'center',
             }}>
-            Trainings
+            Employment Details
           </Text>
         </View>
-        <Icon
+        {/* <Icon
           name={'add'}
           size={30}
           color={COLORS.navyBlue}
           style={{position: 'absolute', right: 30}}
           onPress={() => navigation.navigate('AddTrainingsScreen')}
-        />
+        /> */}
       </Header>
-      {trainingsData.length > 0 ? (
-        <FlatList
-          data={trainingsData}
-          renderItem={({item, index}) => (
-            <View key={index}>
-              <TrainingItem
-                id={item.id}
-                title={item.title}
-                topic={item.topic}
-                date={item.date}
-                duration={item.duration}
-                institution={item.institution}
-              />
-            </View>
-          )}
-          keyExtractor={item => item.id}
-          showsVerticalScrollIndicator={false}
-          showsHorizontalScrollIndicator={false}
-          style={{width: '100%'}}
-        />
-      ) : (
-        <View style={{flex: 1, justifyContent: 'center'}}>
-          <View style={{}}>
-            <Text style={{fontSize: 18}}>No Data Available</Text>
-          </View>
-        </View>
-      )}
+      <EmploymentItem employment={employment} />
     </View>
   );
 };
 
-export default TrainingsScreen;
+export default EmploymentDetailsScreen;

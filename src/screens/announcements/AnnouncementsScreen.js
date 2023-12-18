@@ -63,7 +63,7 @@ const AnnouncementsScreen = () => {
           ) : (
             <View style={{flex: 1, justifyContent: 'center'}}>
               <View style={{}}>
-                <Text style={{fontSize: 18}}>No Data Available</Text>
+                <Text style={{fontSize: 18}}>No Announcement Available</Text>
               </View>
             </View>
           )}

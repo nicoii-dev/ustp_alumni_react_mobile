@@ -2,6 +2,7 @@
 import {View} from 'react-native';
 import React from 'react';
 import TextInputController from '../../../components/input/text-input/TextInputController';
+import DateInputController from '../../../components/input/DateInput/DateInputeController';
 
 const TrainingsForm = ({control, errors}) => {
   return (
@@ -13,7 +14,6 @@ const TrainingsForm = ({control, errors}) => {
         placeholder={'Title'}
         errorMessage={errors?.title?.message}
         errorStyle={{color: 'red'}}
-        editable={false}
       />
       <TextInputController
         headerTitle={'Topic'}
@@ -22,7 +22,6 @@ const TrainingsForm = ({control, errors}) => {
         placeholder={'Topic'}
         errorMessage={errors?.topic?.message}
         errorStyle={{color: 'red'}}
-        editable={false}
       />
       <View
         style={{
@@ -31,14 +30,13 @@ const TrainingsForm = ({control, errors}) => {
           marginBottom: 20,
         }}>
         <View style={{width: '45%'}}>
-          <TextInputController
+          <DateInputController
             headerTitle={'Date'}
             control={control}
             name={'date'}
             placeholder={'Date'}
             errorMessage={errors?.date?.message}
             errorStyle={{color: 'red'}}
-            editable={false}
           />
         </View>
         <View style={{width: '45%'}}>
@@ -49,7 +47,7 @@ const TrainingsForm = ({control, errors}) => {
             placeholder={'Duration'}
             errorMessage={errors?.duration?.message}
             errorStyle={{color: 'red'}}
-            editable={false}
+            keyboardType="numeric"
           />
         </View>
       </View>
@@ -60,7 +58,6 @@ const TrainingsForm = ({control, errors}) => {
         placeholder={'Institution'}
         errorMessage={errors?.institution?.message}
         errorStyle={{color: 'red'}}
-        editable={false}
       />
     </>
   );

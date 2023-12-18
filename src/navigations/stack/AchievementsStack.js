@@ -1,0 +1,35 @@
+// /* eslint-disable prettier/prettier */
+// import React from 'react';
+// import {createStackNavigator} from '@react-navigation/stack';
+
+// // screens
+// import TrainingsScreen from '../../screens/profile/trainings/TraingsScreen';
+// import AddTrainingsScreen from '../../screens/profile/trainings/AddTrainingsScreen';
+// import UpdateTrainingsScreen from '../../screens/profile/trainings/UpdateTrainingsScreen';
+
+// // stack instance
+// const AchievementsStack = createStackNavigator();
+
+// const Achievements = () => {
+//   return (
+//     <AchievementsStack.Navigator initialRouteName="AchievementsScreen">
+//       <AchievementsStack.Screen
+//         name="AchievementsScreen"
+//         component={AchievementsScreen}
+//         options={{headerShown: false}}
+//       />
+//       <AchievementsStack.Screen
+//         name="AddAchievementsScreen"
+//         component={AddAchievementsScreen}
+//         options={{headerShown: false}}
+//       />
+//       <AchievementsStack.Screen
+//         name="UpdateAchievementscreen"
+//         component={UpdateAchievementsScreen}
+//         options={{headerShown: false}}
+//       />
+//     </AchievementsStack.Navigator>
+//   );
+// };
+
+// export default Achievements;
