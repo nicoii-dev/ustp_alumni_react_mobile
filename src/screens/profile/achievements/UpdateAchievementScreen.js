@@ -11,15 +11,18 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import _ from 'lodash';
 import Header from '../../../components/header/Header';
 import COLORS from '../../../config/constants/colors';
-import {TrainingSchema} from '../../../library/yup-schema/trainingsSchema';
-import {FetchTraining, UpdateTraining} from '../../../library/api/trainingsApi';
-import TrainingsForm from './Form';
+import AchievementForm from './Form';
 import {loadingStart, loadingFinish} from '../../../store/loader/LoaderSlice';
 import ButtonComponent from '../../../components/input/button/ButtonComponent';
+import {
+  FetchAchievement,
+  UpdateAchievement,
+} from '../../../library/api/achievementsApi';
+import {AchievementSchema} from '../../../library/yup-schema/achievementSchema';
 
-const UpdateTrainingsScreen = ({route}) => {
+const UpdateAchievementScreen = ({route}) => {
   const navigation = useNavigation();
-  const {trainingId} = route.params;
+  const {id} = route.params;
   const dispatch = useDispatch();
   const defaultValues = {
     title: '',
@@ -35,20 +38,19 @@ const UpdateTrainingsScreen = ({route}) => {
     handleSubmit,
     formState: {errors},
   } = useForm({
-    resolver: yupResolver(TrainingSchema),
+    resolver: yupResolver(AchievementSchema),
     defaultValues: defaultValues,
   });
 
-  const getTraining = useCallback(async () => {
-    await FetchTraining(trainingId)
+  const getData = useCallback(async () => {
+    await FetchAchievement(id)
       .then(async response => {
         console.log(response);
         reset({
           title: response.title,
-          topic: response.topic,
+          category: response.category,
           date: response.date,
-          duration: response.duration,
-          institution: response.institution,
+          description: response.description,
         });
       })
       .finally(() => {
@@ -57,29 +59,24 @@ const UpdateTrainingsScreen = ({route}) => {
   }, [reset]);
 
   useEffect(() => {
-    getTraining();
-  }, [getTraining]);
+    getData();
+  }, [getData]);
 
   const onSubmit = async data => {
     dispatch(loadingStart());
     const payload = {
-      data: [
-        {
-          title: data.title,
-          topic: data.topic,
-          date: data.date,
-          duration: data.duration,
-          institution: data.institution,
-        },
-      ],
+      title: data.title,
+      category: data.category,
+      date: data.date,
+      description: data.description,
     };
     try {
-      const response = await UpdateTraining(payload, trainingId);
+      const response = await UpdateAchievement(payload, id);
       console.log(response);
       dispatch(loadingFinish());
       if (!_.isUndefined(response)) {
         Toast.showWithGravity(
-          'Training successfully updated.',
+          'Achievement successfully updated.',
           Toast.LONG,
           Toast.CENTER,
         );
@@ -127,7 +124,7 @@ const UpdateTrainingsScreen = ({route}) => {
         </View>
       </Header>
       <ScrollView style={{marginTop: 10, width: '100%'}}>
-        <TrainingsForm control={control} errors={errors} />
+        <AchievementForm control={control} errors={errors} />
       </ScrollView>
       <View
         style={{
@@ -144,11 +141,13 @@ const UpdateTrainingsScreen = ({route}) => {
           color="#2C74B3"
           size="lg"
           styles={{width: '75%'}}>
-          <Text style={{color: 'white', fontFamily: 'Manrope-Bold'}}>Update</Text>
+          <Text style={{color: 'white', fontFamily: 'Manrope-Bold'}}>
+            Update
+          </Text>
         </ButtonComponent>
       </View>
     </View>
   );
 };
 
-export default UpdateTrainingsScreen;
+export default UpdateAchievementScreen;

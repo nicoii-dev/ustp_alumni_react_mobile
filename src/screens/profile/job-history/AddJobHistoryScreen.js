@@ -1,7 +1,6 @@
-/* eslint-disable react/prop-types */
 /* eslint-disable prettier/prettier */
 import {View, Text, ScrollView} from 'react-native';
-import React, {useCallback, useEffect} from 'react';
+import React from 'react';
 import Toast from 'react-native-simple-toast';
 import {useForm} from 'react-hook-form';
 import {useDispatch} from 'react-redux';
@@ -11,75 +10,51 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import _ from 'lodash';
 import Header from '../../../components/header/Header';
 import COLORS from '../../../config/constants/colors';
-import {TrainingSchema} from '../../../library/yup-schema/trainingsSchema';
-import {FetchTraining, UpdateTraining} from '../../../library/api/trainingsApi';
-import TrainingsForm from './Form';
+import JobHistoryForm from './Form';
 import {loadingStart, loadingFinish} from '../../../store/loader/LoaderSlice';
 import ButtonComponent from '../../../components/input/button/ButtonComponent';
+import {JobHistorySchema} from '../../../library/yup-schema/jobHistorySchema';
+import { CreateJobHistory } from '../../../library/api/jobHistoryApi';
 
-const UpdateTrainingsScreen = ({route}) => {
+const AddJobHistoryScreen = () => {
   const navigation = useNavigation();
-  const {trainingId} = route.params;
   const dispatch = useDispatch();
   const defaultValues = {
-    title: '',
-    topic: '',
-    date: new Date(),
-    duration: '',
-    institution: '',
+    company: '',
+    position: '',
+    dateStarted: new Date(),
+    dateEnded: new Date(),
+    salary: '',
+    status: 'Currently Employed',
   };
 
   const {
     control,
-    reset,
+    // setValue,
     handleSubmit,
     formState: {errors},
   } = useForm({
-    resolver: yupResolver(TrainingSchema),
+    resolver: yupResolver(JobHistorySchema),
     defaultValues: defaultValues,
   });
-
-  const getTraining = useCallback(async () => {
-    await FetchTraining(trainingId)
-      .then(async response => {
-        console.log(response);
-        reset({
-          title: response.title,
-          topic: response.topic,
-          date: response.date,
-          duration: response.duration,
-          institution: response.institution,
-        });
-      })
-      .finally(() => {
-        setTimeout(() => {}, 2000);
-      });
-  }, [reset]);
-
-  useEffect(() => {
-    getTraining();
-  }, [getTraining]);
 
   const onSubmit = async data => {
     dispatch(loadingStart());
     const payload = {
-      data: [
-        {
-          title: data.title,
-          topic: data.topic,
-          date: data.date,
-          duration: data.duration,
-          institution: data.institution,
-        },
-      ],
+      company: data.company,
+      position: data.position,
+      date_started: data.dateStarted,
+      date_ended: data.dateEnded,
+      salary: data.salary,
+      status: data.status,
     };
     try {
-      const response = await UpdateTraining(payload, trainingId);
+      const response = await CreateJobHistory(payload);
       console.log(response);
       dispatch(loadingFinish());
       if (!_.isUndefined(response)) {
         Toast.showWithGravity(
-          'Training successfully updated.',
+          'Job history successfully added.',
           Toast.LONG,
           Toast.CENTER,
         );
@@ -122,12 +97,12 @@ const UpdateTrainingsScreen = ({route}) => {
               color: COLORS.navyBlue,
               textAlign: 'center',
             }}>
-            Update
+            Create
           </Text>
         </View>
       </Header>
       <ScrollView style={{marginTop: 10, width: '100%'}}>
-        <TrainingsForm control={control} errors={errors} />
+        <JobHistoryForm control={control} errors={errors} />
       </ScrollView>
       <View
         style={{
@@ -144,11 +119,11 @@ const UpdateTrainingsScreen = ({route}) => {
           color="#2C74B3"
           size="lg"
           styles={{width: '75%'}}>
-          <Text style={{color: 'white', fontFamily: 'Manrope-Bold'}}>Update</Text>
+          <Text style={{color: 'white', fontFamily: 'Manrope-Bold'}}>Save</Text>
         </ButtonComponent>
       </View>
     </View>
   );
 };
 
-export default UpdateTrainingsScreen;
+export default AddJobHistoryScreen;

@@ -1,35 +1,34 @@
-// /* eslint-disable prettier/prettier */
-// import React from 'react';
-// import {createStackNavigator} from '@react-navigation/stack';
+/* eslint-disable prettier/prettier */
+import React from 'react';
+import {createStackNavigator} from '@react-navigation/stack';
 
-// // screens
-// import TrainingsScreen from '../../screens/profile/trainings/TraingsScreen';
-// import AddTrainingsScreen from '../../screens/profile/trainings/AddTrainingsScreen';
-// import UpdateTrainingsScreen from '../../screens/profile/trainings/UpdateTrainingsScreen';
+// screens
+import AchievementsScreen from '../../screens/profile/achievements/AchievementsScreen';
+import AddAchievementScreen from '../../screens/profile/achievements/AddAchievementScreen';
+import UpdateAchievementScreen from '../../screens/profile/achievements/UpdateAchievementScreen';
+// stack instance
+const AchievementsStack = createStackNavigator();
 
-// // stack instance
-// const AchievementsStack = createStackNavigator();
+const Achievements = () => {
+  return (
+    <AchievementsStack.Navigator initialRouteName="AchievementsScreen">
+      <AchievementsStack.Screen
+        name="AchievementsScreen"
+        component={AchievementsScreen}
+        options={{headerShown: false}}
+      />
+      <AchievementsStack.Screen
+        name="AddAchievementsScreen"
+        component={AddAchievementScreen}
+        options={{headerShown: false}}
+      />
+      <AchievementsStack.Screen
+        name="UpdateAchievementsScreen"
+        component={UpdateAchievementScreen}
+        options={{headerShown: false}}
+      />
+    </AchievementsStack.Navigator>
+  );
+};
 
-// const Achievements = () => {
-//   return (
-//     <AchievementsStack.Navigator initialRouteName="AchievementsScreen">
-//       <AchievementsStack.Screen
-//         name="AchievementsScreen"
-//         component={AchievementsScreen}
-//         options={{headerShown: false}}
-//       />
-//       <AchievementsStack.Screen
-//         name="AddAchievementsScreen"
-//         component={AddAchievementsScreen}
-//         options={{headerShown: false}}
-//       />
-//       <AchievementsStack.Screen
-//         name="UpdateAchievementscreen"
-//         component={UpdateAchievementsScreen}
-//         options={{headerShown: false}}
-//       />
-//     </AchievementsStack.Navigator>
-//   );
-// };
-
-// export default Achievements;
+export default Achievements;

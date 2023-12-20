@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import {View, Text, FlatList} from 'react-native';
+import {View, Text, FlatList, RefreshControl} from 'react-native';
 import React, {useCallback, useEffect, useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -7,12 +7,11 @@ import Header from '../../../components/header/Header';
 import COLORS from '../../../config/constants/colors';
 import moment from 'moment';
 import AchievementItem from './item';
-import { FetchAllAchievements } from '../../../library/api/achievementsApi';
+import {FetchAllAchievements} from '../../../library/api/achievementsApi';
 
 const AchievementsScreen = () => {
   const navigation = useNavigation();
   const [trainingsData, setTrainingsData] = useState([]);
-
   const getAchievements = useCallback(async () => {
     await FetchAllAchievements()
       .then(async response => {
@@ -38,12 +37,36 @@ const AchievementsScreen = () => {
     });
   }, [getAchievements, navigation]);
 
+  const [refreshing, setRefreshing] = React.useState(false);
+
+  const onRefresh = React.useCallback(async () => {
+    setRefreshing(true);
+    await FetchAllAchievements()
+      .then(async response => {
+        console.log(response);
+        setTrainingsData(
+          response.map(data => ({
+            id: data.id,
+            title: data.title,
+            category: data.category,
+            date: moment(data.date).format('LL'),
+            description: data.description,
+          })),
+        );
+      })
+      .finally(() => {
+        setTimeout(() => {
+          setRefreshing(false);
+        }, 2000);
+      });
+  }, []);
+
   return (
     <View
       style={{
         flex: 1,
         alignItems: 'center',
-        width: '95%',
+        width: '100%',
         alignSelf: 'center',
       }}>
       <Header>
@@ -69,13 +92,13 @@ const AchievementsScreen = () => {
             Achievements
           </Text>
         </View>
-        {/* <Icon
+        <Icon
           name={'add'}
           size={30}
           color={COLORS.navyBlue}
           style={{position: 'absolute', right: 30}}
-          onPress={() => navigation.navigate('AddTrainingsScreen')}
-        /> */}
+          onPress={() => navigation.navigate('AddAchievementsScreen')}
+        />
       </Header>
       {trainingsData.length > 0 ? (
         <FlatList
@@ -88,13 +111,17 @@ const AchievementsScreen = () => {
                 category={item.category}
                 date={item.date}
                 description={item.description}
+                onRefresh={onRefresh}
               />
             </View>
           )}
           keyExtractor={item => item.id}
           showsVerticalScrollIndicator={false}
           showsHorizontalScrollIndicator={false}
-          style={{width: '100%'}}
+          style={{width: '95%'}}
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          }
         />
       ) : (
         <View style={{flex: 1, justifyContent: 'center'}}>

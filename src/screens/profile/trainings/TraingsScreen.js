@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import {View, Text, FlatList} from 'react-native';
+import {View, Text, FlatList, RefreshControl} from 'react-native';
 import React, {useCallback, useEffect, useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -39,12 +39,37 @@ const TrainingsScreen = () => {
     });
   }, [getTrainings, navigation]);
 
+  const [refreshing, setRefreshing] = React.useState(false);
+
+  const onRefresh = React.useCallback(async () => {
+    setRefreshing(true);
+    await FetchTrainings()
+      .then(async response => {
+        console.log(response);
+        setTrainingsData(
+          response.map(data => ({
+            id: data.id,
+            title: data.title,
+            topic: data.topic,
+            date: moment(data.date).format('LL'),
+            duration: data.duration,
+            institution: data.institution,
+          })),
+        );
+      })
+      .finally(() => {
+        setTimeout(() => {
+          setRefreshing(false);
+        }, 2000);
+      });
+  }, []);
+
   return (
     <View
       style={{
         flex: 1,
         alignItems: 'center',
-        width: '95%',
+        width: '100%',
         alignSelf: 'center',
       }}>
       <Header>
@@ -90,13 +115,17 @@ const TrainingsScreen = () => {
                 date={item.date}
                 duration={item.duration}
                 institution={item.institution}
+                onRefresh={onRefresh}
               />
             </View>
           )}
           keyExtractor={item => item.id}
           showsVerticalScrollIndicator={false}
           showsHorizontalScrollIndicator={false}
-          style={{width: '100%'}}
+          style={{width: '95%'}}
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          }
         />
       ) : (
         <View style={{flex: 1, justifyContent: 'center'}}>

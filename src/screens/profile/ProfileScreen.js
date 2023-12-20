@@ -106,7 +106,7 @@ const ProfileScreen = () => {
               />
             </View>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate('AchievementsScreen')}>
+          <TouchableOpacity onPress={() => navigation.navigate('AchievementStack')}>
             <View style={ProfileScreenStyle.securityContainer}>
               <Text style={ProfileScreenStyle.securityText}>Achievements</Text>
               <Icon
@@ -139,7 +139,7 @@ const ProfileScreen = () => {
               />
             </View>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate('JobHistoryScreen')}>
+          <TouchableOpacity onPress={() => navigation.navigate('JobHistoryStack')}>
             <View style={ProfileScreenStyle.securityContainer}>
               <Text style={ProfileScreenStyle.securityText}>Job History</Text>
               <Icon

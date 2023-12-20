@@ -2,6 +2,10 @@
 import {View} from 'react-native';
 import React from 'react';
 import TextInputController from '../../../components/input/text-input/TextInputController';
+import PickerInputController from '../../../components/input/PickerInput/PickerInputController';
+import DateInputController from '../../../components/input/DateInput/DateInputeController';
+
+const jobHistoryType = ['Currently Employed', 'Resigned', 'End of Contract'];
 
 const JobHistoryForm = ({control, errors}) => {
   return (
@@ -13,7 +17,6 @@ const JobHistoryForm = ({control, errors}) => {
         placeholder={'Company'}
         errorMessage={errors?.company?.message}
         errorStyle={{color: 'red'}}
-        editable={false}
         inputStyle={{textTransform: 'capitalize'}}
       />
       <TextInputController
@@ -23,7 +26,6 @@ const JobHistoryForm = ({control, errors}) => {
         placeholder={'Position'}
         errorMessage={errors?.position?.message}
         errorStyle={{color: 'red'}}
-        editable={false}
         inputStyle={{textTransform: 'capitalize'}}
       />
       <View
@@ -33,25 +35,23 @@ const JobHistoryForm = ({control, errors}) => {
           marginBottom: 20,
         }}>
         <View style={{width: '45%'}}>
-          <TextInputController
+          <DateInputController
             headerTitle={'Date Started'}
             control={control}
             name={'dateStarted'}
             placeholder={'Date Started'}
             errorMessage={errors?.dateStarted?.message}
             errorStyle={{color: 'red'}}
-            editable={false}
           />
         </View>
         <View style={{width: '45%'}}>
-          <TextInputController
+          <DateInputController
             headerTitle={'Date Ended'}
             control={control}
             name={'dateEnded'}
             placeholder={'Date Ended'}
             errorMessage={errors?.dateEnded?.message}
             errorStyle={{color: 'red'}}
-            editable={false}
           />
         </View>
       </View>
@@ -62,16 +62,15 @@ const JobHistoryForm = ({control, errors}) => {
         placeholder={'Salary'}
         errorMessage={errors?.salary?.message}
         errorStyle={{color: 'red'}}
-        editable={false}
+        keyboardType="numeric"
       />
-      <TextInputController
+      <PickerInputController
         headerTitle={'Status'}
         control={control}
         name={'status'}
-        placeholder={'Status'}
         errorMessage={errors?.status?.message}
         errorStyle={{color: 'red'}}
-        editable={false}
+        pickerOptions={jobHistoryType}
       />
     </>
   );

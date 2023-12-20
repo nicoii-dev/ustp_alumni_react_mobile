@@ -11,22 +11,26 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import _ from 'lodash';
 import Header from '../../../components/header/Header';
 import COLORS from '../../../config/constants/colors';
-import {TrainingSchema} from '../../../library/yup-schema/trainingsSchema';
-import {FetchTraining, UpdateTraining} from '../../../library/api/trainingsApi';
-import TrainingsForm from './Form';
+import AchievementForm from './Form';
 import {loadingStart, loadingFinish} from '../../../store/loader/LoaderSlice';
 import ButtonComponent from '../../../components/input/button/ButtonComponent';
+import {JobHistorySchema} from '../../../library/yup-schema/jobHistorySchema';
+import {
+  FetchJobHistory,
+  UpdateJobHistory,
+} from '../../../library/api/jobHistoryApi';
 
-const UpdateTrainingsScreen = ({route}) => {
+const UpdateJobHistoryScreen = ({route}) => {
   const navigation = useNavigation();
-  const {trainingId} = route.params;
+  const {jobId} = route.params;
   const dispatch = useDispatch();
   const defaultValues = {
-    title: '',
-    topic: '',
-    date: new Date(),
-    duration: '',
-    institution: '',
+    company: '',
+    position: '',
+    dateStarted: new Date(),
+    dateEnded: new Date(),
+    salary: '',
+    status: 'Currently Employed',
   };
 
   const {
@@ -35,20 +39,22 @@ const UpdateTrainingsScreen = ({route}) => {
     handleSubmit,
     formState: {errors},
   } = useForm({
-    resolver: yupResolver(TrainingSchema),
+    resolver: yupResolver(JobHistorySchema),
     defaultValues: defaultValues,
   });
 
-  const getTraining = useCallback(async () => {
-    await FetchTraining(trainingId)
+  const getData = useCallback(async () => {
+    console.log(jobId)
+    await FetchJobHistory(jobId)
       .then(async response => {
         console.log(response);
         reset({
-          title: response.title,
-          topic: response.topic,
-          date: response.date,
-          duration: response.duration,
-          institution: response.institution,
+          company: response.company,
+          position: response.position,
+          dateStarted: response.date_started,
+          dateEnded: response.date_ended,
+          salary: response.salary,
+          status: response.status,
         });
       })
       .finally(() => {
@@ -57,29 +63,27 @@ const UpdateTrainingsScreen = ({route}) => {
   }, [reset]);
 
   useEffect(() => {
-    getTraining();
-  }, [getTraining]);
+    getData();
+  }, [getData]);
 
   const onSubmit = async data => {
     dispatch(loadingStart());
     const payload = {
-      data: [
-        {
-          title: data.title,
-          topic: data.topic,
-          date: data.date,
-          duration: data.duration,
-          institution: data.institution,
-        },
-      ],
+      company: data.company,
+      position: data.position,
+      date_started: data.dateStarted,
+      date_ended: data.dateEnded,
+      salary: data.salary,
+      status: data.status,
     };
+    console.log(payload)
     try {
-      const response = await UpdateTraining(payload, trainingId);
+      const response = await UpdateJobHistory(payload, jobId);
       console.log(response);
       dispatch(loadingFinish());
       if (!_.isUndefined(response)) {
         Toast.showWithGravity(
-          'Training successfully updated.',
+          'Job history successfully updated.',
           Toast.LONG,
           Toast.CENTER,
         );
@@ -127,7 +131,7 @@ const UpdateTrainingsScreen = ({route}) => {
         </View>
       </Header>
       <ScrollView style={{marginTop: 10, width: '100%'}}>
-        <TrainingsForm control={control} errors={errors} />
+        <AchievementForm control={control} errors={errors} />
       </ScrollView>
       <View
         style={{
@@ -144,11 +148,13 @@ const UpdateTrainingsScreen = ({route}) => {
           color="#2C74B3"
           size="lg"
           styles={{width: '75%'}}>
-          <Text style={{color: 'white', fontFamily: 'Manrope-Bold'}}>Update</Text>
+          <Text style={{color: 'white', fontFamily: 'Manrope-Bold'}}>
+            Update
+          </Text>
         </ButtonComponent>
       </View>
     </View>
   );
 };
 
-export default UpdateTrainingsScreen;
+export default UpdateJobHistoryScreen;

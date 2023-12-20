@@ -13,7 +13,15 @@ import {DeleteTraining} from '../../../library/api/trainingsApi';
 import {useDispatch} from 'react-redux';
 import {loadingStart, loadingFinish} from '../../../store/loader/LoaderSlice';
 
-const TrainingItem = ({id, title, topic, date, duration, institution}) => {
+const TrainingItem = ({
+  id,
+  title,
+  topic,
+  date,
+  duration,
+  institution,
+  onRefresh,
+}) => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const [isVisible, setIsVisible] = useState(false);
@@ -30,6 +38,7 @@ const TrainingItem = ({id, title, topic, date, duration, institution}) => {
           Toast.LONG,
           Toast.CENTER,
         );
+        onRefresh();
         return setIsVisible(false);
       }
       3;
