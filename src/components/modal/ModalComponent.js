@@ -14,7 +14,7 @@ const ModalComponent = props => {
       visible={props.showModal}
       onRequestClose={() => props.setShowModal(false)}>
       <View style={ModalStyles.centeredView}>
-        <View style={[ModalStyles.modalView, {height: props.height}]}>
+        <View style={[ModalStyles.modalView, props.style]}>
           {props.children}
         </View>
       </View>

@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
-import React from 'react';
-import {View, Text, Pressable} from 'react-native';
+import React, {useEffect} from 'react';
+import {View, Text, Pressable, TouchableOpacity} from 'react-native';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -14,9 +14,53 @@ import {useNavigation} from '@react-navigation/native';
 // components
 import COLORS from '../../../config/constants/colors';
 import UstpImages from '../../../config/images/ustp-images';
+import {LikeAPost, UnlinkAPost} from '../../../library/api/postApi';
+import {USER} from '../../../library/constants';
+import {useStorage} from '../../../library/storage/Storage';
 
-const FreedomWallItem = ({id, user, images, title, date}) => {
+const FreedomWallItem = ({
+  id,
+  user,
+  images,
+  title,
+  date,
+  onRefresh,
+  post_likes,
+  profilePic,
+}) => {
   const navigation = useNavigation();
+  const [userData, setUserData] = React.useState('');
+
+  const setUser = React.useCallback(async () => {
+    const data = await useStorage.getItem(USER.USER_DATA);
+    setUserData(JSON.parse(data));
+  }, []);
+
+  useEffect(() => {
+    setUser();
+  }, [setUser]);
+
+  const likeHandler = async () => {
+    if (post_likes.some(el => el.user_id === userData.id)) {
+      const likeData = post_likes.find(ele => ele.post_id === id);
+      await UnlinkAPost(likeData.id, {post_id: id})
+        .then(async () => {
+          onRefresh();
+        })
+        .finally(() => {
+          setTimeout(() => {}, 2000);
+        });
+      return;
+    }
+    await LikeAPost({post_id: id})
+      .then(async () => {
+        onRefresh();
+      })
+      .finally(() => {
+        setTimeout(() => {}, 2000);
+      });
+  };
+
   return (
     <View
       style={{
@@ -32,7 +76,13 @@ const FreedomWallItem = ({id, user, images, title, date}) => {
         style={{alignItems: 'flex-start', padding: 10, flexDirection: 'row'}}>
         <FastImage
           // @ts-ignore
-          source={UstpImages.ustpLogo}
+          source={
+            profilePic
+              ? {
+                  uri: `http://localhost:8000/storage/${profilePic}`,
+                }
+              : UstpImages.ustpLogo
+          }
           style={{
             height: hp(5),
             width: hp(5),
@@ -69,11 +119,12 @@ const FreedomWallItem = ({id, user, images, title, date}) => {
             fontFamily: 'Roboto-Regular',
             color: COLORS.black,
           }}
-          numberOfLines={4}>
+          numberOfLines={3}>
           {title}
         </Text>
-        {images.length < 1 ? (
-          <Pressable>
+        {images.length < 1 && title.length > 50 ? (
+          <Pressable
+            onPress={() => navigation.navigate('ViewPostScreen', {postId: id})}>
             <Text
               style={{
                 alignSelf: 'flex-end',
@@ -207,10 +258,28 @@ const FreedomWallItem = ({id, user, images, title, date}) => {
               justifyContent: 'center',
               gap: 4,
             }}>
-            <Icon name={'thumb-up-off-alt'} size={25} color={COLORS.dimGray} />
-            <Text style={{fontFamily: 'Roboto-Bold', color: COLORS.dimGray}}>
-              Like
-            </Text>
+            <TouchableOpacity
+              style={{flexDirection: 'row', gap: 4}}
+              onPress={likeHandler}>
+              <Icon
+                name={'thumb-up-off-alt'}
+                size={25}
+                color={
+                  post_likes?.some(el => el.user_id === userData.id)
+                    ? COLORS.blue
+                    : COLORS.dimGray
+                }
+              />
+              <Text
+                style={{
+                  fontFamily: 'Roboto-Bold',
+                  color: post_likes?.some(el => el.user_id === userData.id)
+                    ? COLORS.blue
+                    : COLORS.dimGray,
+                }}>
+                Like
+              </Text>
+            </TouchableOpacity>
           </View>
           <View
             style={{
@@ -220,14 +289,20 @@ const FreedomWallItem = ({id, user, images, title, date}) => {
               justifyContent: 'center',
               gap: 4,
             }}>
-            <Icon
-              name={'chat-bubble-outline'}
-              size={25}
-              color={COLORS.dimGray}
-            />
-            <Text style={{fontFamily: 'Roboto-Bold', color: COLORS.dimGray}}>
-              Comment
-            </Text>
+            <Pressable
+              style={{flexDirection: 'row', gap: 4}}
+              onPress={() =>
+                navigation.navigate('ViewPostScreen', {postId: id})
+              }>
+              <Icon
+                name={'chat-bubble-outline'}
+                size={25}
+                color={COLORS.dimGray}
+              />
+              <Text style={{fontFamily: 'Roboto-Bold', color: COLORS.dimGray}}>
+                Comment
+              </Text>
+            </Pressable>
           </View>
         </View>
       </View>

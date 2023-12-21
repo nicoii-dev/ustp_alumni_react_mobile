@@ -1,4 +1,4 @@
-import {View, FlatList, SafeAreaView, Text} from 'react-native';
+import {View, FlatList, SafeAreaView, Text, RefreshControl} from 'react-native';
 import React, {useState, useEffect, useCallback} from 'react';
 import {
   heightPercentageToDP as hp,
@@ -37,6 +37,30 @@ const JobPostingScreen = () => {
     });
   }, [fetchHandler, navigation]);
 
+  const [refreshing, setRefreshing] = React.useState(false);
+
+  const onRefresh = React.useCallback(async () => {
+    setRefreshing(true);
+    await FetchAllJobPosting()
+      .then(async response => {
+        console.log(response);
+        setJobPosting(
+          response.map(data => ({
+            id: data.id,
+            images: data.job_images.map(data => data.url),
+            title: data.title,
+            description: data.description,
+            date: data.created_at,
+          })),
+        );
+      })
+      .finally(() => {
+        setTimeout(() => {
+          setRefreshing(false);
+        }, 2000);
+      });
+  }, []);
+
   return (
     <SafeAreaView style={{flex: 1}}>
       <Header />
@@ -59,6 +83,9 @@ const JobPostingScreen = () => {
               keyExtractor={item => item.id}
               showsVerticalScrollIndicator={false}
               showsHorizontalScrollIndicator={false}
+              refreshControl={
+                <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+              }
             />
           ) : (
             <View style={{flex: 1, justifyContent: 'center'}}>

@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 import axios from 'axios';
-import { useStorage } from '../storage/Storage';
-import { USER } from '../constants';
+import {useStorage} from '../storage/Storage';
+import {USER} from '../constants';
 import Toast from 'react-native-simple-toast';
 
 export const FetchAllPost = async () => {
@@ -32,7 +32,7 @@ export const CreatePost = async payload => {
       {
         headers: {
           Accept: 'application/json',
-          "Content-Type": "multipart/form-data",
+          'Content-Type': 'multipart/form-data',
           Authorization: `Bearer ${token}`,
         },
       },
@@ -62,7 +62,7 @@ export const ViewPost = async id => {
     );
     return response.data;
   } catch (error) {
-    console.log(error)
+    console.log(error);
     // Toast.showWithGravity(
     //   error.response.data.message,
     //   Toast.LONG,
@@ -75,7 +75,7 @@ export const UpdatePost = async id => {
   try {
     const token = await useStorage.getItem(USER.ACCESS_TOKEN);
     const response = await axios.post(
-      `${process.env.REACT_APP_API_LOCAL_URL}/user-citationlist-groupby/${id}`,
+      `http://localhost:8000/user-citationlist-groupby/${id}`,
       {},
       {
         headers: {
@@ -87,7 +87,7 @@ export const UpdatePost = async id => {
     );
     return response.data;
   } catch (error) {
-    console.log(error)
+    console.log(error);
     // Toast.showWithGravity(
     //   error.response.data.message,
     //   Toast.LONG,
@@ -100,8 +100,57 @@ export const DeletePost = async id => {
   try {
     const token = await useStorage.getItem(USER.ACCESS_TOKEN);
     const response = await axios.post(
-      `${process.env.REACT_APP_API_LOCAL_URL}/violator-citationlist/${id}`,
+      `http://localhost:8000/violator-citationlist/${id}`,
       {},
+      {
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    );
+    return response.data;
+  } catch (error) {
+    return Toast.showWithGravity(
+      error.response.data.message,
+      Toast.LONG,
+      Toast.CENTER,
+    );
+  }
+};
+
+export const LikeAPost = async payload => {
+  try {
+    const token = await useStorage.getItem(USER.ACCESS_TOKEN);
+    const response = await axios.post(
+      `http://localhost:8000/api/likes/like-post`,
+      payload,
+      {
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    );
+    return response;
+  } catch (error) {
+    console.log(error)
+    return Toast.showWithGravity(
+      error.response.data.message,
+      Toast.LONG,
+      Toast.CENTER,
+    );
+  }
+};
+
+export const UnlinkAPost = async (id, payload) => {
+  try {
+    const token = await useStorage.getItem(USER.ACCESS_TOKEN);
+    const response = await axios.post(
+      `http://localhost:8000/api/likes/unlike-post/${id}`,
+      payload,
       {
         headers: {
           Accept: 'application/json',
