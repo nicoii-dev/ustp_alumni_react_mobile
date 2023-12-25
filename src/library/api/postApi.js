@@ -37,6 +37,7 @@ export const CreatePost = async payload => {
         },
       },
     );
+    console.log("test", response)
     return response.data;
   } catch (error) {
     return Toast.showWithGravity(

@@ -24,6 +24,7 @@ const PickerInputController = ({
   enabled,
   errorMessage,
   errorStyle,
+  pickerStyle
 }) => {
   const [show, setShow] = useState(true);
 
@@ -61,7 +62,7 @@ const PickerInputController = ({
                   enabled={enabled}
                   selectedValue={value}
                   onValueChange={handleOnChange}
-                  style={{width: widthPercentageToDP('90%')}}
+                  style={[{width: widthPercentageToDP('90%')}, pickerStyle]}
                   itemStyle={{height: 88}}>
                   {pickerOptions.map((option, index) => {
                     return (

@@ -2,6 +2,7 @@
 import {View} from 'react-native';
 import React from 'react';
 import TextInputController from '../../../components/input/text-input/TextInputController';
+import DateInputController from '../../../components/input/DateInput/DateInputeController';
 
 const EducationalForm = ({control, errors}) => {
   return (
@@ -9,20 +10,18 @@ const EducationalForm = ({control, errors}) => {
       <TextInputController
         headerTitle={'College'}
         control={control}
-        name={'college'}
+        name={'collegeSchool'}
         placeholder={'College'}
-        errorMessage={errors?.college?.message}
+        errorMessage={errors?.collegeSchool?.message}
         errorStyle={{color: 'red'}}
-        editable={false}
       />
       <TextInputController
         headerTitle={'Address'}
         control={control}
-        name={'address'}
+        name={'collegeAddress'}
         placeholder={'Address'}
-        errorMessage={errors?.address?.message}
+        errorMessage={errors?.collegeAddress?.message}
         errorStyle={{color: 'red'}}
-        editable={false}
       />
       <TextInputController
         headerTitle={'Course'}
@@ -31,7 +30,6 @@ const EducationalForm = ({control, errors}) => {
         placeholder={'Course'}
         errorMessage={errors?.course?.message}
         errorStyle={{color: 'red'}}
-        editable={false}
       />
       <View
         style={{
@@ -40,25 +38,23 @@ const EducationalForm = ({control, errors}) => {
           marginBottom: 20,
         }}>
         <View style={{width: '45%'}}>
-          <TextInputController
+          <DateInputController
             headerTitle={'Year Start'}
+            name={'collegeSyStart'}
             control={control}
-            name={'yearStart'}
-            placeholder={'Year Start'}
-            errorMessage={errors?.yearStart?.message}
-            errorStyle={{color: 'red'}}
-            editable={false}
+            errorMessage={errors?.collegeSyStart?.message}
+            display={'default'}
+            mode={'date'}
           />
         </View>
         <View style={{width: '45%'}}>
-          <TextInputController
+          <DateInputController
             headerTitle={'Year End'}
+            name={'collegeSyEnd'}
             control={control}
-            name={'yearEnd'}
-            placeholder={'Year End'}
-            errorMessage={errors?.yearEnd?.message}
-            errorStyle={{color: 'red'}}
-            editable={false}
+            errorMessage={errors?.collegeSyEnd?.message}
+            display={'default'}
+            mode={'date'}
           />
         </View>
       </View>
@@ -69,7 +65,6 @@ const EducationalForm = ({control, errors}) => {
         placeholder={'High School'}
         errorMessage={errors?.highSchool?.message}
         errorStyle={{color: 'red'}}
-        editable={false}
       />
       <TextInputController
         headerTitle={'Address'}
@@ -78,7 +73,6 @@ const EducationalForm = ({control, errors}) => {
         placeholder={'Address'}
         errorMessage={errors?.highAddress?.message}
         errorStyle={{color: 'red'}}
-        editable={false}
       />
       <View
         style={{
@@ -87,25 +81,23 @@ const EducationalForm = ({control, errors}) => {
           marginBottom: 20,
         }}>
         <View style={{width: '45%'}}>
-          <TextInputController
+          <DateInputController
             headerTitle={'Year Start'}
+            name={'highSyStart'}
             control={control}
-            name={'highYearStart'}
-            placeholder={'Year Start'}
-            errorMessage={errors?.highYearStart?.message}
-            errorStyle={{color: 'red'}}
-            editable={false}
+            errorMessage={errors?.highSyStart?.message}
+            display={'default'}
+            mode={'date'}
           />
         </View>
         <View style={{width: '45%'}}>
-          <TextInputController
-            headerTitle={'Year End'}
+          <DateInputController
+            headerTitle={'Year Start'}
+            name={'highSyEnd'}
             control={control}
-            name={'highYearEnd'}
-            placeholder={'Year End'}
-            errorMessage={errors?.highYearEnd?.message}
-            errorStyle={{color: 'red'}}
-            editable={false}
+            errorMessage={errors?.highSyEnd?.message}
+            display={'default'}
+            mode={'date'}
           />
         </View>
       </View>
@@ -117,7 +109,6 @@ const EducationalForm = ({control, errors}) => {
         placeholder={'Elementary School'}
         errorMessage={errors?.elemSchool?.message}
         errorStyle={{color: 'red'}}
-        editable={false}
       />
       <TextInputController
         headerTitle={'Address'}
@@ -126,7 +117,6 @@ const EducationalForm = ({control, errors}) => {
         placeholder={'Address'}
         errorMessage={errors?.elemAddress?.message}
         errorStyle={{color: 'red'}}
-        editable={false}
       />
       <View
         style={{
@@ -135,25 +125,23 @@ const EducationalForm = ({control, errors}) => {
           marginBottom: 20,
         }}>
         <View style={{width: '45%'}}>
-          <TextInputController
+          <DateInputController
             headerTitle={'Year Start'}
+            name={'elemSyStart'}
             control={control}
-            name={'elemYearStart'}
-            placeholder={'Year Start'}
-            errorMessage={errors?.elemYearStart?.message}
-            errorStyle={{color: 'red'}}
-            editable={false}
+            errorMessage={errors?.elemSyStart?.message}
+            display={'default'}
+            mode={'date'}
           />
         </View>
         <View style={{width: '45%'}}>
-          <TextInputController
+          <DateInputController
             headerTitle={'Year End'}
+            name={'elemSyEnd'}
             control={control}
-            name={'elemYearEnd'}
-            placeholder={'Year End'}
-            errorMessage={errors?.elemYearEnd?.message}
-            errorStyle={{color: 'red'}}
-            editable={false}
+            errorMessage={errors?.elemSyEnd?.message}
+            display={'default'}
+            mode={'date'}
           />
         </View>
       </View>

@@ -4,6 +4,23 @@ import {useStorage} from '../storage/Storage';
 import {USER} from '../constants';
 import Toast from 'react-native-simple-toast';
 
+export const UserRegistration = async payload => {
+  try {
+    const response = await axios.post(
+      `http://localhost:8000/api/auth/register`,
+      payload,
+    );
+    console.log(payload);
+    return response.data;
+  } catch (error) {
+    return Toast.showWithGravity(
+      error.response.data.message,
+      Toast.LONG,
+      Toast.CENTER,
+    );
+  }
+};
+
 export const UserLogin = async payload => {
   try {
     const response = await axios.post(

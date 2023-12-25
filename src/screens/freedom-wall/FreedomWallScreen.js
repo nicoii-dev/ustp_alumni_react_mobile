@@ -1,7 +1,18 @@
-import {View, SafeAreaView, FlatList, Text, RefreshControl} from 'react-native';
+import {
+  View,
+  SafeAreaView,
+  FlatList,
+  Text,
+  RefreshControl,
+  TouchableOpacity,
+} from 'react-native';
 import React, {useState, useEffect, useCallback} from 'react';
-import {heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import {
+  heightPercentageToDP as hp,
+  widthPercentageToDP,
+} from 'react-native-responsive-screen';
 import {useNavigation} from '@react-navigation/native';
+import FastImage from 'react-native-fast-image';
 
 // components
 import Header from '../../components/header/Header';
@@ -9,10 +20,26 @@ import FreedomWallItem from '../../components/screen/freedom-wall/FreedomWallIte
 
 // api
 import {FetchAllPost} from '../../library/api/postApi';
+import COLORS from '../../config/constants/colors';
+import UstpImages from '../../config/images/ustp-images';
+import {useStorage} from '../../library/storage/Storage';
+import {USER} from '../../library/constants';
 
 const FreedomWallScreen = () => {
   const navigation = useNavigation();
   const [post, setPost] = useState([]);
+
+  const [user, setUser] = useState(null);
+
+  const getUser = useCallback(async () => {
+    const data = await useStorage.getItem(USER.USER_DATA);
+    setUser(JSON.parse(data));
+  }, []);
+
+  useEffect(() => {
+    getUser();
+  }, [getUser]);
+
   const fetchHandler = useCallback(async () => {
     await FetchAllPost()
       .then(async response => {
@@ -24,7 +51,7 @@ const FreedomWallScreen = () => {
             date: data.created_at,
             user: `${data.post_owner.first_name} ${data.post_owner.middle_name} ${data.post_owner.last_name}`,
             post_likes: data.post_likes.map(data => data),
-            profile: data.image,
+            profile: data?.post_owner?.image,
           })),
         );
       })
@@ -68,8 +95,61 @@ const FreedomWallScreen = () => {
   return (
     <SafeAreaView style={{flex: 1}}>
       <Header />
-      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-        <View style={{height: hp(77), marginBottom: 10, borderRadius: 10}}>
+      <View
+        style={{
+          flex: 1,
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+        <View
+          style={{
+            alignItems: 'center',
+            padding: 10,
+            flexDirection: 'row',
+            backgroundColor: COLORS.white,
+            width: '100%',
+            marginTop: 50,
+            alignContent: 'center',
+          }}>
+          <FastImage
+            // @ts-ignore
+            source={
+              user?.image
+                ? {uri: `http://localhost:8000/storage/${user.image}`}
+                : UstpImages.ustpLogo
+            }
+            style={{
+              height: hp(5),
+              width: hp(5),
+              borderRadius: 5,
+              marginLeft: 20,
+            }}
+            resizeMode="stretch"
+          />
+          <TouchableOpacity
+            style={{padding: 10}}
+            onPress={() => navigation.navigate('CreatePostScreen')}>
+            <View
+              style={{
+                borderColor: COLORS.darkGray,
+                borderRadius: 10,
+                borderWidth: 1,
+                padding: 5,
+                width: widthPercentageToDP(60),
+              }}>
+              <Text style={{color: COLORS.black}}>
+                {"What's on your mind?"}
+              </Text>
+            </View>
+          </TouchableOpacity>
+        </View>
+        <View
+          style={{
+            height: hp(77),
+            marginBottom: 10,
+            borderRadius: 10,
+            marginTop: 10,
+          }}>
           {post.length > 0 ? (
             <FlatList
               data={post}

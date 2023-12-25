@@ -66,8 +66,8 @@ const FreedomWallItem = ({
       style={{
         borderRadius: 10,
         width: wp('90%'),
-        height: images.length <= 0 ? hp('25') : hp('50'),
-        maxHeight: images.length <= 0 ? hp('25') : hp('50'),
+        height: images?.length <= 0 ? hp('25') : hp('50'),
+        maxHeight: images?.length <= 0 ? hp('25') : hp('50'),
         marginBottom: 15,
         position: 'relative',
         backgroundColor: COLORS.white,
@@ -122,7 +122,7 @@ const FreedomWallItem = ({
           numberOfLines={3}>
           {title}
         </Text>
-        {images.length < 1 && title.length > 50 ? (
+        {images?.length < 1 && title?.length > 50 ? (
           <Pressable
             onPress={() => navigation.navigate('ViewPostScreen', {postId: id})}>
             <Text
@@ -138,7 +138,7 @@ const FreedomWallItem = ({
           </Pressable>
         ) : null}
       </View>
-      {images.length <= 1
+      {images?.length <= 1
         ? images?.map((data, index) => {
             return (
               <Pressable
@@ -166,7 +166,7 @@ const FreedomWallItem = ({
           })
         : null}
 
-      {images.length > 1 && images.length <= 2 ? (
+      {images?.length > 1 && images?.length <= 2 ? (
         <View style={{flex: 1, flexDirection: 'row'}}>
           {images?.map((data, index) => {
             return (
@@ -196,7 +196,7 @@ const FreedomWallItem = ({
         </View>
       ) : null}
 
-      {images.length > 2 ? (
+      {images?.length > 2 ? (
         <FlatList
           data={images.slice(0, 4)}
           renderItem={({item, index}) => (

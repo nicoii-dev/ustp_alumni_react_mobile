@@ -9,8 +9,8 @@ import SecurityScreen from '../../screens/profile/security/SecurityScreen';
 import EducationalScreen from '../../screens/profile/educational/EducationScreen';
 import Trainings from './TrainingsStack';
 import Achievements from './AchievementsStack';
-import EmploymentDetailsScreen from '../../screens/profile/employment-details/EmploymentDetails';
 import JobHistory from './JobHistoryStack';
+import Employment from './EmploymentDetailsStack';
 
 // stack instance
 const ProfileStack = createStackNavigator();
@@ -54,8 +54,8 @@ const Profile = () => {
           options={{headerShown: false}}
         />
         <ProfileStack.Screen
-          name="EmploymentDetailsScreen"
-          component={EmploymentDetailsScreen}
+          name="EmploymentStack"
+          component={Employment}
           options={{headerShown: false}}
         />
         <ProfileStack.Screen

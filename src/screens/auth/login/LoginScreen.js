@@ -3,7 +3,7 @@
 import React from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
 import FastImage from 'react-native-fast-image';
-import { useNavigation } from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 
 // styles
 import LoginScreenStyles from './login-screen-style';
@@ -20,18 +20,28 @@ const LoginScreen = () => {
       <View style={LoginScreenStyles.formWrapper}>
         <View style={LoginScreenStyles.signinContainer}>
           <Text style={LoginScreenStyles.signinText}>Welcome to</Text>
-          <Text style={LoginScreenStyles.signinText}>
-            Alumnus Mobile App
-          </Text>
+          <Text style={LoginScreenStyles.signinText}>Alumnus Mobile App</Text>
         </View>
         <View style={LoginScreenStyles.formContainer}>
           <LoginComponent />
         </View>
-        <View style={{position: 'absolute', bottom: 10, alignSelf: 'center'}}>
+        <View
+          style={{
+            width: '100%',
+            bottom: 20,
+            flexDirection: 'row',
+            justifyContent: 'space-evenly',
+          }}>
           <TouchableOpacity
             onPress={() => navigation.navigate('ForgotPasswordScreen')}>
             <Text style={{textDecorationLine: 'underline', color: 'black'}}>
               Forgot Password
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('SignupScreen')}>
+            <Text style={{textDecorationLine: 'underline', color: 'black'}}>
+              Sign Up
             </Text>
           </TouchableOpacity>
         </View>

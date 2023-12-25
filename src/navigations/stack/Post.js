@@ -5,6 +5,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 // screens
 import FreedomWallScreen from '../../screens/freedom-wall/FreedomWallScreen';
 import ViewPostScreen from '../../screens/freedom-wall/ViewPostScreen';
+import CreatePostScreen from '../../screens/freedom-wall/CreatePostScreen';
 
 // stack instance
 const PostStack = createStackNavigator();
@@ -20,6 +21,11 @@ const Post = () => {
       <PostStack.Screen
         name="ViewPostScreen"
         component={ViewPostScreen}
+        options={{headerShown: false}}
+      />
+      <PostStack.Screen
+        name="CreatePostScreen"
+        component={CreatePostScreen}
         options={{headerShown: false}}
       />
     </PostStack.Navigator>

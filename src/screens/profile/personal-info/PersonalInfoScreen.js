@@ -67,7 +67,7 @@ const PersonalInfoScreen = () => {
         middleName: middle_name,
         lastName: last_name,
         gender,
-        dob: moment(dob).format('YYYY-MM-DD'),
+        dob: new Date(),
         email,
         phoneNumber: phone_number,
       });
@@ -140,12 +140,13 @@ const PersonalInfoScreen = () => {
           position: 'absolute',
         }}>
         <ButtonComponent
-          disabled
           onPress={handleSubmit(onSubmit)}
           color="#2C74B3"
           size="lg"
           styles={{width: '50%'}}>
-          <Text style={{color: 'white', fontFamily: 'Manrope-Bold'}}>Save</Text>
+          <Text style={{color: 'white', fontFamily: 'Manrope-Bold'}}>
+            Update
+          </Text>
         </ButtonComponent>
       </View> */}
     </View>

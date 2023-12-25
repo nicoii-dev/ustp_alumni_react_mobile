@@ -128,7 +128,7 @@ const ProfileScreen = () => {
               />
             </View>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate('EmploymentDetailsScreen')}>
+          <TouchableOpacity onPress={() => navigation.navigate('EmploymentStack')}>
             <View style={ProfileScreenStyle.securityContainer}>
               <Text style={ProfileScreenStyle.securityText}>Employment Details</Text>
               <Icon

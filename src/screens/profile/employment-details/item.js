@@ -9,12 +9,21 @@ const EmploymentItem = ({employment}) => {
 
   return (
     <View style={itemStyle.viewContainer}>
+      <Text
+        style={{
+          color: 'black',
+          fontSize: 20,
+          paddingBottom: 20,
+          textTransform: 'capitalize',
+        }}>{`Currently Employed: ${
+        employment?.status ? employment?.status : 'No Data'
+      }`}</Text>
       <View style={{flexDirection: 'row', gap: 5}}>
         {employment?.status === 'yes' ? (
           <>
             <View>
               <Text style={itemStyle.itemData}>
-                {`Currently Employed:\n`}
+                {/* {`Currently Employed:\n`} */}
                 {`Status:\n`}
                 {`Occupation:\n`}
                 {`Line of Business:\n`}
@@ -30,7 +39,7 @@ const EmploymentItem = ({employment}) => {
                   fontWeight: '700',
                   textTransform: 'capitalize',
                 }}>
-                {`${employment?.status}\n`}
+                {/* {`${employment?.status}\n`} */}
                 {`${employment?.type}\n`}
                 {`${employment?.present_occupation} \n`}
                 {`${employment?.line_of_business} \n`}
@@ -50,7 +59,7 @@ const EmploymentItem = ({employment}) => {
                   fontWeight: '700',
                   textTransform: 'capitalize',
                 }}>
-                {array}
+                {array ? array : 'No Data'}
               </Text>
             </View>
           </>

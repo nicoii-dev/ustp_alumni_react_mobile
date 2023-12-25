@@ -39,24 +39,24 @@ const LoginComponent = () => {
   });
 
   const onSubmit = async data => {
-    console.log(data)
+    console.log(data);
     dispatch(loadingStart());
     try {
       const response = await UserLogin(data);
-      console.log(response)
+      console.log(response);
       dispatch(loadingFinish());
       if (!_.isUndefined(response)) {
         return navigation.navigate('UserTab');
       }
     } catch (error) {
-      console.log(error)
+      console.log(error);
       dispatch(loadingFinish());
     }
   };
 
   return (
     <View style={{flex: 1, justifyContent: 'center'}}>
-      <TextInputController 
+      <TextInputController
         control={control}
         name={'email'}
         placeholder={'Email'}

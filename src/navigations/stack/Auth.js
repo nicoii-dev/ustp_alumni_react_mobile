@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 // screens
 import LoginScreen from '../../screens/auth/login/LoginScreen';
 import ForgotPasswordScreen from '../../screens/auth/forgot-password/ForgotPassword';
+import SignupScreen from '../../screens/auth/sign-up/SignupScreen';
 
 // stack instance
 const AuthStack = createStackNavigator();
@@ -30,7 +31,7 @@ const Auth = ({navigation}) => {
   // * prevent going back to the otp screen
   useEffect(() => {
     // *prevent from returning to loading screen
-    const unsubscribeRemove = navigation?.addListener('beforeRemove', (e) => {
+    const unsubscribeRemove = navigation?.addListener('beforeRemove', e => {
       if (e && e.data.action.type === 'GO_BACK') {
         e.preventDefault();
         // *
@@ -47,6 +48,11 @@ const Auth = ({navigation}) => {
       <AuthStack.Screen
         name="LoginScreen"
         component={LoginScreen}
+        options={{headerShown: false}}
+      />
+      <AuthStack.Screen
+        name="SignupScreen"
+        component={SignupScreen}
         options={{headerShown: false}}
       />
       <AuthStack.Screen
