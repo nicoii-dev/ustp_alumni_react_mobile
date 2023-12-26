@@ -26,5 +26,8 @@ export const profileSchema = yup
       .matches(/^[0-9]+$/, 'Numbers only')
       .matches(/^(09|\+639)\d{9}$/gm, 'Invalid phone number'),
     dob: yup.string().required('Date of birth is required'),
+    civilStatus: yup.string().required('Civil Status is required'),
+    street: yup.string().required('Street is required'),
+    zipcode: yup.string().required('Zip Code is required'),
   })
   .required();

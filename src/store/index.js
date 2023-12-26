@@ -4,6 +4,7 @@ import AnnouncementSlice from './announcement/AnnouncementSlice';
 import JobPostingSlice from './JobPostingSlice';
 import commentSlice from './commentSlice';
 import EmploymentDetailsSlice from './EmploymentDetailsSlice';
+import SetupProfileSlice from './SetupProfileSlice';
 
 const store = configureStore({
   reducer: {
@@ -12,6 +13,7 @@ const store = configureStore({
     jobPosting: JobPostingSlice,
     comment: commentSlice,
     employmentDetails: EmploymentDetailsSlice,
+    setupProfile: SetupProfileSlice,
   },
 });
 

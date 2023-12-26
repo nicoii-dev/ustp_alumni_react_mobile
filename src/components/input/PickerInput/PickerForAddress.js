@@ -12,7 +12,7 @@ import {
   widthPercentageToDP,
 } from 'react-native-responsive-screen';
 
-const PickerInputController = ({
+const PickerForAddress = ({
   name,
   control,
   defaultValue,
@@ -67,8 +67,8 @@ const PickerInputController = ({
                   {pickerOptions.map((option, index) => {
                     return (
                       <Picker.Item
-                        label={option}
-                        value={option}
+                        label={option.label}
+                        value={option.value}
                         key={index}
                         style={{fontFamily: 'Manrope-Regular', }}
                       />
@@ -90,4 +90,4 @@ const PickerInputController = ({
   );
 };
 
-export default PickerInputController;
+export default PickerForAddress;

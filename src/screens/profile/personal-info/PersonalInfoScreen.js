@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import {View, Text} from 'react-native';
+import {View, Text, ScrollView, RefreshControl} from 'react-native';
 import React, {useCallback, useEffect, useState} from 'react';
 import {useForm} from 'react-hook-form';
 import {yupResolver} from '@hookform/resolvers/yup';
@@ -17,16 +17,52 @@ import {useStorage} from '../../../library/storage/Storage';
 import moment from 'moment';
 
 // api
-import {UpdateProfile} from '../../../library/api/userApi';
+import {FetchProfile, UpdateProfile} from '../../../library/api/userApi';
 
 // redux
 import {loadingStart, loadingFinish} from '../../../store/loader/LoaderSlice';
 import COLORS from '../../../config/constants/colors';
+import AddressComponent from './Address';
 
 const PersonalInfoScreen = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
-  const [userId, setUserId] = useState('');
+  const [profileData, setProfileData] = useState([]);
+
+  const [regionCode, setRegionCode] = useState('');
+  const [provinceCode, setProvinceCode] = useState('');
+  const [cityCode, setCityCode] = useState('');
+  const [barangayCode, setBarangayCode] = useState('');
+  const [regionText, setRegionText] = useState('');
+  const [provinceText, setProvinceText] = useState('');
+  const [cityText, setCityText] = useState('');
+  const [barangayText, setBarangayText] = useState('');
+
+  const getProfileData = useCallback(async () => {
+    await FetchProfile()
+      .then(async response => {
+        setProfileData(response);
+      })
+      .finally(() => {
+        setTimeout(() => {}, 2000);
+      });
+  }, []);
+
+  useEffect(() => {
+    navigation.addListener('focus', () => {
+      getProfileData();
+    });
+  }, [getProfileData, navigation]);
+
+  const [refreshing, setRefreshing] = React.useState(false);
+
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    getProfileData();
+    setTimeout(() => {
+      setRefreshing(false);
+    }, 2000);
+  }, []);
 
   const defaultValues = {
     firstName: '',
@@ -35,6 +71,9 @@ const PersonalInfoScreen = () => {
     gender: 'Male',
     phoneNumber: '',
     dob: new Date(),
+    civilStatus: 'single',
+    street: '',
+    zipcode: '',
   };
 
   const {
@@ -49,30 +88,19 @@ const PersonalInfoScreen = () => {
   });
 
   const getUserDetails = useCallback(async () => {
-    const user = await useStorage.getItem(USER.USER_DATA);
-    if (user) {
-      const {
-        id,
-        first_name = '',
-        middle_name = '',
-        last_name = '',
-        gender = '',
-        dob = new Date(),
-        email = '',
-        phone_number = '',
-      } = JSON.parse(user);
-      setUserId(id);
+    console.log('prof', profileData);
+    if (profileData) {
       reset({
-        firstName: first_name,
-        middleName: middle_name,
-        lastName: last_name,
-        gender,
-        dob: new Date(),
-        email,
-        phoneNumber: phone_number,
+        firstName: profileData.first_name,
+        middleName: profileData.middle_name,
+        lastName: profileData.last_name,
+        gender: profileData.gender,
+        dob: profileData.dob,
+        phoneNumber: profileData.phone_number,
+        civilStatus: profileData.civil_status,
       });
     }
-  }, [reset]);
+  }, [reset, profileData]);
 
   useEffect(() => {
     getUserDetails();
@@ -81,16 +109,23 @@ const PersonalInfoScreen = () => {
   const onSubmit = async data => {
     dispatch(loadingStart());
     const payload = {
-      first_name: data.firstName,
-      middle_name: data.middleName,
-      last_name: data.lastName,
       gender: data.gender,
+      civil_status: data.civilStatus,
       phone_number: data.phoneNumber,
       dob: moment(data.dob).format('YYYY-MM-DD'),
-      role: 'USER',
-      status: 1,
+      street: data.street,
+      zipcode: data.zipcode,
+      barangay: barangayText,
+      barangay_code: barangayCode,
+      city: cityText,
+      city_code: cityCode,
+      province: provinceText,
+      province_code: provinceCode,
+      region: regionText,
+      region_code: regionCode,
     };
-    await UpdateProfile(payload, userId);
+    console.log(payload);
+    await UpdateProfile(payload);
     dispatch(loadingFinish());
   };
 
@@ -126,29 +161,49 @@ const PersonalInfoScreen = () => {
           </Text>
         </View>
       </Header>
-      <View style={{marginTop: 10, width: '100%'}}>
+      <ScrollView
+        style={{flex: 1}}
+        // contentContainerStyle={{flex: 1}}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }>
         <PersonalInfoComponent control={control} errors={errors} />
-      </View>
+        <AddressComponent
+          control={control}
+          errors={errors}
+          setBarangayCode={setBarangayCode}
+          setCityCode={setCityCode}
+          setProvinceCode={setProvinceCode}
+          setRegionCode={setRegionCode}
+          setBarangayText={setBarangayText}
+          setCityText={setCityText}
+          setProvinceText={setProvinceText}
+          setRegionText={setRegionText}
+          regionCode={regionCode}
+          provinceCode={provinceCode}
+          cityCode={cityCode}
+          barangayCode={barangayCode}
+        />
 
-      {/* <View
-        style={{
-          alignItems: 'center',
-          justifyContent: 'center',
-          height: 70,
-          width: '100%',
-          bottom: 10,
-          position: 'absolute',
-        }}>
-        <ButtonComponent
-          onPress={handleSubmit(onSubmit)}
-          color="#2C74B3"
-          size="lg"
-          styles={{width: '50%'}}>
-          <Text style={{color: 'white', fontFamily: 'Manrope-Bold'}}>
-            Update
-          </Text>
-        </ButtonComponent>
-      </View> */}
+        <View
+          style={{
+            alignItems: 'center',
+            justifyContent: 'center',
+            height: 70,
+            width: '100%',
+            bottom: 10,
+          }}>
+          <ButtonComponent
+            onPress={handleSubmit(onSubmit)}
+            color="#2C74B3"
+            size="lg"
+            styles={{width: '50%'}}>
+            <Text style={{color: 'white', fontFamily: 'Manrope-Bold'}}>
+              Update
+            </Text>
+          </ButtonComponent>
+        </View>
+      </ScrollView>
     </View>
   );
 };

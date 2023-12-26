@@ -24,8 +24,8 @@ const LoginComponent = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const defaultValues = {
-    email: '',
-    password: '',
+    email: 'testuser4@gmail.com',
+    password: '111111',
   };
 
   const {
@@ -39,14 +39,16 @@ const LoginComponent = () => {
   });
 
   const onSubmit = async data => {
-    console.log(data);
     dispatch(loadingStart());
     try {
       const response = await UserLogin(data);
-      console.log(response);
       dispatch(loadingFinish());
       if (!_.isUndefined(response)) {
-        return navigation.navigate('UserTab');
+        if (!_.isNull(response?.user?.address)) {
+         return navigation.navigate('UserTab');
+        } else {
+         return navigation.navigate('SetupProfileStack');
+        }
       }
     } catch (error) {
       console.log(error);

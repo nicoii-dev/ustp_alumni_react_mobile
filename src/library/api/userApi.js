@@ -43,12 +43,31 @@ export const UserLogin = async payload => {
   }
 };
 
-export const UpdateProfile = async (payload, id) => {
+export const FetchProfile = async () => {
+  try {
+    const token = await useStorage.getItem(USER.ACCESS_TOKEN);
+    const response = await axios.get(`http://localhost:8000/api/profile`, {
+      headers: {
+        Accept: 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    return Toast.showWithGravity(
+      error.response.data.message,
+      Toast.LONG,
+      Toast.CENTER,
+    );
+  }
+};
+
+export const UpdateProfile = async (payload) => {
   const token = await useStorage.getItem(USER.ACCESS_TOKEN);
   try {
     // await useStorage.removeItem(USER.USER_DATA)
-    const response = await axios.put(
-      `http://localhost:8000/update-user/${id}`,
+    const response = await axios.post(
+      `http://localhost:8000/api/profile/update`,
       payload,
       {
         headers: {

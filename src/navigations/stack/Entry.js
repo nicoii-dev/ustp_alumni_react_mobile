@@ -10,6 +10,7 @@ import SplashScreen from '../../screens/splash/SplashScreen';
 // stack components
 import UserTab from '../tabs/user-tab';
 import AuthStack from './Auth';
+import SetupProfile from './SetupProfileStack';
 
 // stack instance
 const EntryStack = createStackNavigator();
@@ -62,6 +63,11 @@ const Entry = ({navigation}) => {
         <EntryStack.Screen
           name="UserTab"
           component={UserTab}
+          options={{headerShown: false}}
+        />
+        <EntryStack.Screen
+          name="SetupProfileStack"
+          component={SetupProfile}
           options={{headerShown: false}}
         />
       </EntryStack.Navigator>

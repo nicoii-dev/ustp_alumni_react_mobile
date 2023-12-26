@@ -1,8 +1,9 @@
 import {Animated, SafeAreaView} from 'react-native';
-import React, {useEffect, useRef} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import FastImage from 'react-native-fast-image';
 import {useDispatch} from 'react-redux';
+import _ from 'lodash';
 
 // styles
 import SplashScreenStyles from './splashscreen-styles';
@@ -18,13 +19,27 @@ const SplashScreen = () => {
   // First set up animation
   const fadeAnim = useRef(new Animated.Value(0)).current;
 
+  const [userData, setUserData] = useState(null);
+  const getUser = React.useCallback(async () => {
+    let user = await useStorage.getItem(USER.USER_DATA);
+    setUserData(JSON.parse(user));
+  }, []);
+
+  useEffect(() => {
+    getUser();
+  }, [getUser]);
+
   useEffect(() => {
     const getToken = async () => {
       const token = await useStorage.getItem(USER.ACCESS_TOKEN);
-
+      console.log('test', userData.address);
       const timer = setTimeout(() => {
         if (token) {
-          navigation.navigate('UserTab');
+          if (!_.isNull(userData?.address)) {
+            navigation.navigate('UserTab');
+          } else {
+            navigation.navigate('SetupProfileStack');
+          }
         } else {
           navigation.navigate('AuthStack');
         }

@@ -4,6 +4,14 @@ import React from 'react';
 import TextInputController from '../../../input/text-input/TextInputController';
 import PickerInputController from '../../../input/PickerInput/PickerInputController';
 import DateInputController from '../../../input/DateInput/DateInputeController';
+const civilStatusList = [
+  'single',
+  'married',
+  'divorced',
+  'separated',
+  'widowed',
+  'single-parent',
+];
 
 const PersonalInfoComponent = ({control, errors}) => {
   return (
@@ -46,6 +54,17 @@ const PersonalInfoComponent = ({control, errors}) => {
           errorMessage={errors?.gender?.message}
           errorStyle={{color: 'red', width: '95%', alignSelf: 'center'}}
           pickerOptions={['Male', 'Female']}
+          headerStyles={{width: '95%'}}
+        />
+      </View>
+      <View>
+        <PickerInputController
+          headerTitle={'Civil Status'}
+          name={'civilStatus'}
+          control={control}
+          errorMessage={errors?.civilStatus?.message}
+          errorStyle={{color: 'red', width: '95%', alignSelf: 'center'}}
+          pickerOptions={civilStatusList}
           headerStyles={{width: '95%'}}
         />
       </View>
