@@ -7,7 +7,7 @@ import Toast from 'react-native-simple-toast';
 export const FetchAllPost = async () => {
   try {
     const token = await useStorage.getItem(USER.ACCESS_TOKEN);
-    const response = await axios.get(`http://localhost:8000/api/post`, {
+    const response = await axios.get(`https://ustpalumnilaravelapi-production.up.railway.app/api/post`, {
       headers: {
         Accept: 'application/json',
         Authorization: `Bearer ${token}`,
@@ -27,7 +27,7 @@ export const CreatePost = async payload => {
   try {
     const token = await useStorage.getItem(USER.ACCESS_TOKEN);
     const response = await axios.post(
-      `http://localhost:8000/api/post/create/`,
+      `https://ustpalumnilaravelapi-production.up.railway.app/api/post/create/`,
       payload,
       {
         headers: {
@@ -52,7 +52,7 @@ export const ViewPost = async id => {
   try {
     const token = await useStorage.getItem(USER.ACCESS_TOKEN);
     const response = await axios.post(
-      `http://localhost:8000/api/post/view/${id}`,
+      `https://ustpalumnilaravelapi-production.up.railway.app/api/post/view/${id}`,
       {},
       {
         headers: {
@@ -76,7 +76,7 @@ export const UpdatePost = async id => {
   try {
     const token = await useStorage.getItem(USER.ACCESS_TOKEN);
     const response = await axios.post(
-      `http://localhost:8000/user-citationlist-groupby/${id}`,
+      `https://ustpalumnilaravelapi-production.up.railway.app/user-citationlist-groupby/${id}`,
       {},
       {
         headers: {
@@ -101,7 +101,7 @@ export const DeletePost = async id => {
   try {
     const token = await useStorage.getItem(USER.ACCESS_TOKEN);
     const response = await axios.post(
-      `http://localhost:8000/violator-citationlist/${id}`,
+      `https://ustpalumnilaravelapi-production.up.railway.app/violator-citationlist/${id}`,
       {},
       {
         headers: {
@@ -125,7 +125,7 @@ export const LikeAPost = async payload => {
   try {
     const token = await useStorage.getItem(USER.ACCESS_TOKEN);
     const response = await axios.post(
-      `http://localhost:8000/api/likes/like-post`,
+      `https://ustpalumnilaravelapi-production.up.railway.app/api/likes/like-post`,
       payload,
       {
         headers: {
@@ -150,7 +150,7 @@ export const UnlinkAPost = async (id, payload) => {
   try {
     const token = await useStorage.getItem(USER.ACCESS_TOKEN);
     const response = await axios.post(
-      `http://localhost:8000/api/likes/unlike-post/${id}`,
+      `https://ustpalumnilaravelapi-production.up.railway.app/api/likes/unlike-post/${id}`,
       payload,
       {
         headers: {

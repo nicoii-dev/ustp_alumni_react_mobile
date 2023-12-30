@@ -1,4 +1,5 @@
-import {View, Text, Pressable} from 'react-native';
+import {View, Text} from 'react-native';
+import {Overlay} from 'react-native-elements';
 import React, {useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import Toast from 'react-native-simple-toast';
@@ -16,18 +17,28 @@ import {setPersonalDetails} from '../../../store/SetupProfileSlice';
 import Header from '../../../components/header/Header';
 import COLORS from '../../../config/constants/colors';
 import UstpImages from '../../../config/images/ustp-images';
-import TextInputController from '../../../components/input/text-input/TextInputController';
+import PickerInputController from '../../../components/input/PickerInput/PickerInputController';
 import DateInputController from '../../../components/input/DateInput/DateInputeController';
 import {heightPercentageToDP} from 'react-native-responsive-screen';
+import OverlayStyle from './style';
+
+const civilStatusList = [
+  'single',
+  'married',
+  'divorced',
+  'separated',
+  'widowed',
+  'single-parent',
+];
 
 const SetupPersonal = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const [profilePic, setProfilePic] = useState([]);
+  const [isVisible, setIsVisible] = useState(true);
 
   const defaultValues = {
-    profilePic: '',
-    civilStatus: '',
+    civilStatus: 'single',
     dob: '',
   };
 
@@ -68,128 +79,184 @@ const SetupPersonal = () => {
       Toast.show('Upload a profile picture.', Toast.SHORT);
       return;
     }
-    const formData = new FormData();
-    formData.append('dob', data.dob);
-    formData.append('civilStatus', data.civilStatus);
-    formData.append('image', profilePic.file);
-    console.log(formData);
-    await dispatch(setPersonalDetails(formData));
+    const payload = {
+      dob: data.dob,
+      civilStatus: data.civilStatus,
+      image: profilePic.file,
+    };
+    await dispatch(setPersonalDetails(payload));
     navigation.navigate('SetupEmploymentDetails');
   };
 
   return (
-    <View
-      style={{
-        flex: 1,
-        alignItems: 'center',
-        width: '100%',
-        alignSelf: 'center',
-      }}>
-      <Header>
-        <View
-          style={{
-            justifyContent: 'center',
-            flexDirection: 'row',
-          }}>
-          <Text
-            style={{
-              fontFamily: 'Manrope-Bold',
-              fontSize: 25,
-              color: COLORS.navyBlue,
-              textAlign: 'center',
-            }}>
-            Personal Details
-          </Text>
-        </View>
-      </Header>
+    <>
       <View
         style={{
           flex: 1,
-          width: '100%',
           alignItems: 'center',
+          width: '100%',
+          alignSelf: 'center',
         }}>
+        <Header>
+          <View
+            style={{
+              justifyContent: 'center',
+              flexDirection: 'row',
+            }}>
+            <Text
+              style={{
+                fontFamily: 'Manrope-Bold',
+                fontSize: 25,
+                color: COLORS.navyBlue,
+                textAlign: 'center',
+              }}>
+              Personal Details
+            </Text>
+          </View>
+        </Header>
         <View
           style={{
-            marginTop: heightPercentageToDP(8),
-            marginBottom: heightPercentageToDP(4),
-            position: 'relative',
+            flex: 1,
+            width: '100%',
+            alignItems: 'center',
           }}>
-          <FastImage
-            source={
-              profilePic?.imageUrl
-                ? {uri: profilePic?.imageUrl}
-                : UstpImages.emptyLogo
-            }
+          <View
             style={{
-              height: 150,
-              width: 150,
-              borderRadius: 200,
-            }}
-          />
-          <Icon
-            name={'insert-photo'}
-            size={35}
-            style={{
-              borderRadius: 50,
-              justifyContent: 'center',
-              color: 'black',
-              right: 5,
-              top: 5,
-              position: 'absolute',
-            }}
-            onPress={pickImage}
-          />
-        </View>
+              marginTop: heightPercentageToDP(8),
+              marginBottom: heightPercentageToDP(4),
+              position: 'relative',
+            }}>
+            <FastImage
+              source={
+                profilePic?.imageUrl
+                  ? {uri: profilePic?.imageUrl}
+                  : UstpImages.emptyLogo
+              }
+              style={{
+                height: 150,
+                width: 150,
+                borderRadius: 200,
+              }}
+            />
+            <Icon
+              name={'insert-photo'}
+              size={35}
+              style={{
+                borderRadius: 50,
+                justifyContent: 'center',
+                color: 'black',
+                right: 5,
+                top: 5,
+                position: 'absolute',
+              }}
+              onPress={pickImage}
+            />
+          </View>
 
-        <TextInputController
-          headerTitle={'Civil Status'}
-          control={control}
-          name={'civilStatus'}
-          placeholder={'Civil Status'}
-          errorMessage={errors?.civilStatus?.message}
-          errorStyle={{color: 'red'}}
-        />
-        <View style={{width: '100%'}}>
-          <DateInputController
-            headerTitle={'Date of Birth'}
-            name={'dob'}
-            control={control}
-            errorMessage={errors?.dob?.message}
-            display={'default'}
-            mode={'date'}
-          />
+          <View>
+            <PickerInputController
+              headerTitle={'Civil Status'}
+              name={'civilStatus'}
+              control={control}
+              errorMessage={errors?.civilStatus?.message}
+              errorStyle={{color: 'red', width: '95%', alignSelf: 'center'}}
+              pickerOptions={civilStatusList}
+              headerStyles={{width: '95%'}}
+            />
+          </View>
+          <View style={{width: '90%'}}>
+            <DateInputController
+              headerTitle={'Date of Birth'}
+              name={'dob'}
+              control={control}
+              errorMessage={errors?.dob?.message}
+              display={'default'}
+              mode={'date'}
+            />
+          </View>
         </View>
-      </View>
-      <View
-        style={{
-          flexDirection: 'row',
-          width: '100%',
-          borderTopWidth: 1,
-          height: 70,
-          alignItems: 'center',
-          backgroundColor: 'white',
-        }}>
-        {/* <Pressable onPress={() => navigation.goBack()}>
+        <View
+          style={{
+            flexDirection: 'row',
+            width: '100%',
+            borderTopWidth: 1,
+            height: 70,
+            alignItems: 'center',
+            backgroundColor: 'white',
+          }}>
+          {/* <Pressable onPress={() => navigation.goBack()}>
           <View style={{marginRight: 30, width: 100, marginLeft: 50}}>
             <Text style={{color: 'black', fontFamily: 'Manrope-Bold'}}>
               Back
             </Text>
           </View>
         </Pressable> */}
-        <ButtonComponent
-          onPress={handleSubmit(onSubmit)}
-          color="#2C74B3"
-          size="lg"
-          styles={{
-            marginRight: 30,
-            width: 100,
-            position: 'absolute',
-            right: 0,
-          }}>
-          <Text style={{color: 'white', fontFamily: 'Manrope-Bold'}}>Next</Text>
-        </ButtonComponent>
+          <ButtonComponent
+            onPress={handleSubmit(onSubmit)}
+            color="#2C74B3"
+            size="lg"
+            styles={{
+              marginRight: 30,
+              width: 100,
+              position: 'absolute',
+              right: 0,
+            }}>
+            <Text style={{color: 'white', fontFamily: 'Manrope-Bold'}}>
+              Next
+            </Text>
+          </ButtonComponent>
+        </View>
       </View>
-    </View>
+      <Overlay
+        isVisible={isVisible}
+        onBackdropPress={() => {
+          setIsVisible(false);
+        }}
+        overlayStyle={OverlayStyle.overlayStyle}>
+        <View style={OverlayStyle.container}>
+          <View style={OverlayStyle.titleContainer}>
+            <Text
+              style={{
+                marginBottom: heightPercentageToDP(5),
+                fontFamily: 'Manrope-ExtraBold',
+                fontSize: 25,
+                textAlign: 'center',
+                color: COLORS.midnightBlue,
+                fontWeight: 'bold',
+              }}>
+              {'Welcome to \nUSTP Alumnus App'}
+            </Text>
+            <Text style={[OverlayStyle.titleText]}>
+              {
+                'To continue using the app. Please provide the necessary information.'
+              }
+            </Text>
+          </View>
+          {/* <View style={OverlayStyle.messageContainer}>
+         <Text style={OverlayStyle.messageText}>{props.message}</Text>
+       </View> */}
+          <View style={{width: '50%', alignSelf: 'center'}}>
+            <ButtonComponent
+              onPress={() => {
+                setIsVisible(false);
+              }}
+              color={COLORS.DARK_BLUE}
+              size="lg"
+              styles={{}}>
+              <Text
+                style={{
+                  color: 'white',
+                  fontFamily: 'Manrope-Bold',
+                  fontWeight: 'bold',
+                  alignSelf: 'center',
+                }}>
+                Close
+              </Text>
+            </ButtonComponent>
+          </View>
+        </View>
+      </Overlay>
+    </>
   );
 };
 

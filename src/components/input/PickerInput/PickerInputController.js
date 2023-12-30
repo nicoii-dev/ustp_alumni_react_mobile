@@ -62,7 +62,7 @@ const PickerInputController = ({
                   enabled={enabled}
                   selectedValue={value}
                   onValueChange={handleOnChange}
-                  style={[{width: widthPercentageToDP('90%')}, pickerStyle]}
+                  style={[{width: widthPercentageToDP('90%'), color: 'black'}, pickerStyle]}
                   itemStyle={{height: 88}}>
                   {pickerOptions.map((option, index) => {
                     return (
@@ -70,7 +70,7 @@ const PickerInputController = ({
                         label={option}
                         value={option}
                         key={index}
-                        style={{fontFamily: 'Manrope-Regular', }}
+                        style={{fontFamily: 'Manrope-Regular', color: 'black' }}
                       />
                     );
                   })}

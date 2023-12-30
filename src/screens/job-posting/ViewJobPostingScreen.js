@@ -101,7 +101,7 @@ const ViewJobPostingScreen = () => {
           <FastImage
             // @ts-ignore
             source={{
-              uri: `http://localhost:8000/storage/${jobPosting.images[0]}`,
+              uri: `https://ustpalumnilaravelapi-production.up.railway.app/storage/${jobPosting.images[0]}`,
             }}
             style={{
               height: '50%',

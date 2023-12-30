@@ -28,6 +28,7 @@ const itemStyle = StyleSheet.create({
     fontFamily: 'Manrope-Regular',
     fontSize: 15,
     color: 'black',
+    fontWeight: 'bold'
   },
 });
 

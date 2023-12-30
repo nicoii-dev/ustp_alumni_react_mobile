@@ -36,7 +36,6 @@ const EmploymentItem = ({employment}) => {
                   fontFamily: 'Manrope-Regular',
                   fontSize: 15,
                   color: 'black',
-                  fontWeight: '700',
                   textTransform: 'capitalize',
                 }}>
                 {/* {`${employment?.status}\n`} */}

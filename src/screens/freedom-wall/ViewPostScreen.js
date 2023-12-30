@@ -129,7 +129,7 @@ const ViewPostScreen = ({route}) => {
           // @ts-ignore
           source={
             user?.image
-              ? {uri: `http://localhost:8000/storage/${user.image}`}
+              ? {uri: `https://ustpalumnilaravelapi-production.up.railway.app/storage/${user.image}`}
               : UstpImages.ustpLogo
           }
           style={{
@@ -224,7 +224,7 @@ const ViewPostScreen = ({route}) => {
             <FastImage
               key={index}
               source={{
-                uri: `http://localhost:8000/storage/${item}`,
+                uri: `https://ustpalumnilaravelapi-production.up.railway.app/storage/${item}`,
               }}
               style={{
                 height: hp('25%'),

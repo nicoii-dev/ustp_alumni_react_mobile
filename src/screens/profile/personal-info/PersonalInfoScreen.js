@@ -98,7 +98,13 @@ const PersonalInfoScreen = () => {
         dob: profileData.dob,
         phoneNumber: profileData.phone_number,
         civilStatus: profileData.civil_status,
+        street: profileData?.address?.street,
+        zipcode: profileData?.address?.zipcode,
       });
+      setBarangayCode(profileData?.address?.barangay_code);
+      setCityCode(profileData?.address?.city_code);
+      setProvinceCode(profileData?.address?.province_code);
+      setRegionCode(profileData?.address?.region_code);
     }
   }, [reset, profileData]);
 
@@ -157,7 +163,7 @@ const PersonalInfoScreen = () => {
               color: COLORS.navyBlue,
               textAlign: 'center',
             }}>
-            {`Personal \nInformation`}
+            {`Personal Information`}
           </Text>
         </View>
       </Header>

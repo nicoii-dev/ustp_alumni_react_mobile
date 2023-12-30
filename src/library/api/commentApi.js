@@ -8,7 +8,7 @@ export const FetchAllComments = async id => {
   try {
     const token = await useStorage.getItem(USER.ACCESS_TOKEN);
     const response = await axios.get(
-      `http://localhost:8000/api/comment/view${id}`,
+      `https://ustpalumnilaravelapi-production.up.railway.app/api/comment/view${id}`,
       {
         headers: {
           Accept: 'application/json',
@@ -30,7 +30,7 @@ export const CreateComment = async payload => {
   try {
     const token = await useStorage.getItem(USER.ACCESS_TOKEN);
     const response = await axios.post(
-      `http://localhost:8000/api/comment/create/`,
+      `https://ustpalumnilaravelapi-production.up.railway.app/api/comment/create/`,
       payload,
       {
         headers: {
@@ -54,7 +54,7 @@ export const UpdateComment = async (id, payload) => {
   try {
     const token = await useStorage.getItem(USER.ACCESS_TOKEN);
     const response = await axios.post(
-      `http://localhost:8000/api/comment/update/${id}`,
+      `https://ustpalumnilaravelapi-production.up.railway.app/api/comment/update/${id}`,
       payload,
       {
         headers: {
@@ -79,7 +79,7 @@ export const DeletePost = async id => {
   try {
     const token = await useStorage.getItem(USER.ACCESS_TOKEN);
     const response = await axios.post(
-      `http://localhost:8000/violator-citationlist/${id}`,
+      `https://ustpalumnilaravelapi-production.up.railway.app/violator-citationlist/${id}`,
       {},
       {
         headers: {

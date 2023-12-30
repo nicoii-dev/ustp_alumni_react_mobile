@@ -48,24 +48,29 @@ const CreatePostScreen = () => {
   };
 
   const pickImage = async () => {
-    launchImageLibrary({noData: true}, response => {
-      let byte = 1048576; //1024 * 1024 byte conversion to mb binary
-      if (response?.assets[0]?.fileSize / byte > 2) {
-        return Toast.show('Image file size is too large.', Toast.SHORT);
-      }
-      if (response.assets) {
-        const file = {
-          uri: response.assets[0].uri,
-          type: response.assets[0].type,
-          name: response.assets[0].fileName,
-          size: response.assets[0].fileSize,
-        };
-        setPostImages([
-          ...postImages,
-          {file: file, imageUrl: response.assets[0].uri},
-        ]);
-      }
-    });
+    launchImageLibrary({})
+      .then(async response => {
+        let byte = 1048576; //1024 * 1024 byte conversion to mb binary
+        if (response?.assets[0]?.fileSize / byte > 2) {
+          return Toast.show('Image file size is too large.', Toast.SHORT);
+        }
+        if (response.assets) {
+          const file = {
+            uri: response.assets[0].uri,
+            type: response.assets[0].type,
+            name: response.assets[0].fileName,
+            size: response.assets[0].fileSize,
+          };
+          setPostImages([
+            ...postImages,
+            {file: file, imageUrl: response.assets[0].uri},
+          ]);
+        }
+      })
+      .catch(err => {
+        console.log(err);
+        // Here you handle if the user cancels or any other errors
+      });
   };
 
   const onSubmit = async () => {
@@ -146,7 +151,7 @@ const CreatePostScreen = () => {
             // @ts-ignore
             source={
               user?.image
-                ? {uri: `http://localhost:8000/storage/${user.image}`}
+                ? {uri: `https://ustpalumnilaravelapi-production.up.railway.app/storage/${user.image}`}
                 : UstpImages.ustpLogo
             }
             style={{

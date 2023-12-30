@@ -8,7 +8,7 @@ export const FetchTrainings = async () => {
   try {
     const token = await useStorage.getItem(USER.ACCESS_TOKEN);
     const response = await axios.get(
-      `http://localhost:8000/api/training/user`,
+      `https://ustpalumnilaravelapi-production.up.railway.app/api/training/user`,
       {
         headers: {
           Accept: 'application/json',
@@ -30,7 +30,7 @@ export const CreateTraining = async payload => {
   try {
     const token = await useStorage.getItem(USER.ACCESS_TOKEN);
     const response = await axios.post(
-      `http://localhost:8000/api/training/create`,
+      `https://ustpalumnilaravelapi-production.up.railway.app/api/training/create`,
       payload,
       {
         headers: {
@@ -39,6 +39,7 @@ export const CreateTraining = async payload => {
         },
       },
     );
+    console.log('res', response)
     return response.data;
   } catch (error) {
     return Toast.showWithGravity(
@@ -53,7 +54,7 @@ export const FetchTraining = async id => {
   try {
     const token = await useStorage.getItem(USER.ACCESS_TOKEN);
     const response = await axios.post(
-      `http://localhost:8000/api/training/view/${id}`,
+      `https://ustpalumnilaravelapi-production.up.railway.app/api/training/view/${id}`,
       {},
       {
         headers: {
@@ -76,7 +77,7 @@ export const UpdateTraining = async (payload, id) => {
   try {
     const token = await useStorage.getItem(USER.ACCESS_TOKEN);
     const response = await axios.post(
-      `http://localhost:8000/api/training/update/${id}`,
+      `https://ustpalumnilaravelapi-production.up.railway.app/api/training/update/${id}`,
       payload,
       {
         headers: {
@@ -99,7 +100,7 @@ export const DeleteTraining = async (id) => {
   try {
     const token = await useStorage.getItem(USER.ACCESS_TOKEN);
     const response = await axios.delete(
-      `http://localhost:8000/api/training/delete/${id}`,
+      `https://ustpalumnilaravelapi-production.up.railway.app/api/training/delete/${id}`,
       {
         headers: {
           Accept: 'application/json',

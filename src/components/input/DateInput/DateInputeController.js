@@ -59,7 +59,7 @@ const DateInputController = ({
                   display={display}
                   onChange={hanleOnDateChange}
                   maximumDate={new Date()}
-                  style={{backgroundColor: '#E0E0E0'}}
+                  style={{backgroundColor: '#E0E0E0', color: 'black'}}
                 />
               )}
               {!show && (
@@ -71,13 +71,13 @@ const DateInputController = ({
                   }}>
                   <View style={{flexDirection: 'row'}}>
                     {mode === 'date' ? (
-                      <Text style={{fontSize: 18}}>
+                      <Text style={{fontSize: 18, color: 'black'}}>
                         {value
                           ? moment(value).format('MM/DD/YYYY')
                           : 'MM/DD/YYYY'}
                       </Text>
                     ) : (
-                      <Text style={{fontSize: 18}}>
+                      <Text style={{fontSize: 18, color: 'black'}}>
                         {value ? moment(value).format('h:mm:ss A') : '00:00:00'}
                       </Text>
                     )}

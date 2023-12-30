@@ -7,7 +7,7 @@ import Toast from 'react-native-simple-toast';
 export const FetchAllJobHistory = async () => {
   try {
     const token = await useStorage.getItem(USER.ACCESS_TOKEN);
-    const response = await axios.get(`http://localhost:8000/api/job-history`, {
+    const response = await axios.get(`https://ustpalumnilaravelapi-production.up.railway.app/api/job-history`, {
       headers: {
         Accept: 'application/json',
         Authorization: `Bearer ${token}`,
@@ -27,7 +27,7 @@ export const CreateJobHistory = async payload => {
   try {
     const token = await useStorage.getItem(USER.ACCESS_TOKEN);
     const response = await axios.post(
-      `http://localhost:8000/api/job-history/create`,
+      `https://ustpalumnilaravelapi-production.up.railway.app/api/job-history/create`,
       payload,
       {
         headers: {
@@ -50,7 +50,7 @@ export const FetchJobHistory = async id => {
   try {
     const token = await useStorage.getItem(USER.ACCESS_TOKEN);
     const response = await axios.post(
-      `http://localhost:8000/api/job-history/view/${id}`,
+      `https://ustpalumnilaravelapi-production.up.railway.app/api/job-history/view/${id}`,
       {},
       {
         headers: {
@@ -73,7 +73,7 @@ export const UpdateJobHistory = async (payload, id) => {
   try {
     const token = await useStorage.getItem(USER.ACCESS_TOKEN);
     const response = await axios.post(
-      `http://localhost:8000/api/job-history/update/${id}`,
+      `https://ustpalumnilaravelapi-production.up.railway.app/api/job-history/update/${id}`,
       payload,
       {
         headers: {
@@ -96,7 +96,7 @@ export const DeleteJobHistory = async (id) => {
   try {
     const token = await useStorage.getItem(USER.ACCESS_TOKEN);
     const response = await axios.delete(
-      `http://localhost:8000/api/job-history/delete/${id}`,
+      `https://ustpalumnilaravelapi-production.up.railway.app/api/job-history/delete/${id}`,
       {
         headers: {
           Accept: 'application/json',

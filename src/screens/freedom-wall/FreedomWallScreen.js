@@ -115,7 +115,7 @@ const FreedomWallScreen = () => {
             // @ts-ignore
             source={
               user?.image
-                ? {uri: `http://localhost:8000/storage/${user.image}`}
+                ? {uri: `https://ustpalumnilaravelapi-production.up.railway.app/storage/${user.image}`}
                 : UstpImages.ustpLogo
             }
             style={{

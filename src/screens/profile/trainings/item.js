@@ -67,7 +67,6 @@ const TrainingItem = ({
               fontFamily: 'Manrope-Regular',
               fontSize: 15,
               color: 'black',
-              fontWeight: '700',
               textTransform: 'capitalize',
             }}>
             {`${title}\n`}

@@ -24,8 +24,8 @@ const LoginComponent = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const defaultValues = {
-    email: 'testuser4@gmail.com',
-    password: '111111',
+    email: '',
+    password: '',
   };
 
   const {

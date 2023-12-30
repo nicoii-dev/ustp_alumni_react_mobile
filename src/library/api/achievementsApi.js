@@ -7,7 +7,7 @@ import Toast from 'react-native-simple-toast';
 export const FetchAllAchievements = async () => {
   try {
     const token = await useStorage.getItem(USER.ACCESS_TOKEN);
-    const response = await axios.get(`http://localhost:8000/api/achievements`, {
+    const response = await axios.get(`https://ustpalumnilaravelapi-production.up.railway.app/api/achievements`, {
       headers: {
         Accept: 'application/json',
         Authorization: `Bearer ${token}`,
@@ -28,7 +28,7 @@ export const CreateAchievement = async payload => {
   try {
     const token = await useStorage.getItem(USER.ACCESS_TOKEN);
     const response = await axios.post(
-      `http://localhost:8000/api/achievements/create`,
+      `https://ustpalumnilaravelapi-production.up.railway.app/api/achievements/create`,
       payload,
       {
         headers: {
@@ -51,7 +51,7 @@ export const FetchAchievement = async id => {
   try {
     const token = await useStorage.getItem(USER.ACCESS_TOKEN);
     const response = await axios.post(
-      `http://localhost:8000/api/achievements/view/${id}`,
+      `https://ustpalumnilaravelapi-production.up.railway.app/api/achievements/view/${id}`,
       {},
       {
         headers: {
@@ -74,7 +74,7 @@ export const UpdateAchievement = async (payload, id) => {
   try {
     const token = await useStorage.getItem(USER.ACCESS_TOKEN);
     const response = await axios.post(
-      `http://localhost:8000/api/achievements/update/${id}`,
+      `https://ustpalumnilaravelapi-production.up.railway.app/api/achievements/update/${id}`,
       payload,
       {
         headers: {
@@ -97,7 +97,7 @@ export const DeleteAchievement = async (id) => {
   try {
     const token = await useStorage.getItem(USER.ACCESS_TOKEN);
     const response = await axios.delete(
-      `http://localhost:8000/api/achievements/delete/${id}`,
+      `https://ustpalumnilaravelapi-production.up.railway.app/api/achievements/delete/${id}`,
       {
         headers: {
           Accept: 'application/json',

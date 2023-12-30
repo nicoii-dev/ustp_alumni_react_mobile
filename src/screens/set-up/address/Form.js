@@ -34,6 +34,7 @@ const AddressComponent = ({
 
   const regionFunc = () => {
     regions().then(response => {
+      console.log('test', response);
       setRegion(
         response.map(data => ({
           id: data.id,
@@ -103,12 +104,13 @@ const AddressComponent = ({
 
   useEffect(() => {
     regionFunc();
+    console.log(regionData);
   }, []);
 
   return (
     <>
       <View style={{marginTop: 20}}>
-        <View style={{alignItems: 'center'}}>
+        <View style={{alignItems: 'center', marginLeft: 10}}>
           {/* header title for personal info */}
           <Text
             style={[
@@ -143,7 +145,7 @@ const AddressComponent = ({
         </View>
       </View>
       <View>
-        <View style={{alignItems: 'center'}}>
+        <View style={{alignItems: 'center', marginLeft: 10}}>
           {/* header title for personal info */}
           <Text
             style={[
@@ -177,7 +179,7 @@ const AddressComponent = ({
         </View>
       </View>
       <View>
-        <View style={{alignItems: 'center'}}>
+        <View style={{alignItems: 'center', marginLeft: 10}}>
           {/* header title for personal info */}
           <Text
             style={[
@@ -211,7 +213,7 @@ const AddressComponent = ({
         </View>
       </View>
       <View>
-        <View style={{alignItems: 'center'}}>
+        <View style={{alignItems: 'center', marginLeft: 10}}>
           {/* header title for personal info */}
           <Text
             style={[

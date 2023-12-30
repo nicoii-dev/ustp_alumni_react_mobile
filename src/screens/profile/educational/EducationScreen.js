@@ -56,8 +56,8 @@ const EducationalScreen = () => {
         console.log(response);
         if(!_.isEmpty(response))
         reset({
-          college: response[0].college,
-          address: response[0].college_address,
+          collegeSchool: response[0].college,
+          collegeAddress: response[0].college_address,
           course: response[0].course,
           yearStart: String(JSON.parse(response[0].college_sy)[0]),
           yearEnd: String(JSON.parse(response[0].college_sy)[1]),

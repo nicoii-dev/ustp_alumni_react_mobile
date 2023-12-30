@@ -22,7 +22,7 @@ const CommentItems = ({key, comment, owner}) => {
             source={
               owner?.image
                 ? {
-                    uri: `http://localhost:8000/storage/${owner?.image}`,
+                    uri: `https://ustpalumnilaravelapi-production.up.railway.app/storage/${owner?.image}`,
                   }
                 : UstpImages.ustpLogo
             }

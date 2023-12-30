@@ -7,7 +7,7 @@ import Toast from 'react-native-simple-toast';
 export const FetchAllEmploymentDetails = async () => {
   try {
     const token = await useStorage.getItem(USER.ACCESS_TOKEN);
-    const response = await axios.get(`http://localhost:8000/api/employment/user`, {
+    const response = await axios.get(`https://ustpalumnilaravelapi-production.up.railway.app/api/employment/user`, {
       headers: {
         Accept: 'application/json',
         Authorization: `Bearer ${token}`,
@@ -27,7 +27,7 @@ export const CreateEmploymentDetails = async payload => {
   try {
     const token = await useStorage.getItem(USER.ACCESS_TOKEN);
     const response = await axios.post(
-      `http://localhost:8000/api/employment/create`,
+      `https://ustpalumnilaravelapi-production.up.railway.app/api/employment/create`,
       payload,
       {
         headers: {
@@ -50,7 +50,7 @@ export const UpdateEmploymentDetails = async (id, payload) => {
   try {
     const token = await useStorage.getItem(USER.ACCESS_TOKEN);
     const response = await axios.post(
-      `http://localhost:8000/api/employment/update/${id}`,
+      `https://ustpalumnilaravelapi-production.up.railway.app/api/employment/update/${id}`,
       payload,
       {
         headers: {

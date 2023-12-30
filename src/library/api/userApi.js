@@ -7,7 +7,7 @@ import Toast from 'react-native-simple-toast';
 export const UserRegistration = async payload => {
   try {
     const response = await axios.post(
-      `http://localhost:8000/api/auth/register`,
+      `https://ustpalumnilaravelapi-production.up.railway.app/api/auth/register`,
       payload,
     );
     console.log(payload);
@@ -24,15 +24,16 @@ export const UserRegistration = async payload => {
 export const UserLogin = async payload => {
   try {
     const response = await axios.post(
-      `http://localhost:8000/api/auth/login`,
+      `https://ustpalumnilaravelapi-production.up.railway.app/api/auth/login`,
       payload,
     );
-    console.log(payload);
+
     await useStorage.setItem(USER.ACCESS_TOKEN, response.data.token);
     await useStorage.setItem(
       USER.USER_DATA,
       JSON.stringify(response.data.user),
     );
+    console.log(response.data.user);
     return response.data;
   } catch (error) {
     return Toast.showWithGravity(
@@ -46,7 +47,7 @@ export const UserLogin = async payload => {
 export const FetchProfile = async () => {
   try {
     const token = await useStorage.getItem(USER.ACCESS_TOKEN);
-    const response = await axios.get(`http://localhost:8000/api/profile`, {
+    const response = await axios.get(`https://ustpalumnilaravelapi-production.up.railway.app/api/profile`, {
       headers: {
         Accept: 'application/json',
         Authorization: `Bearer ${token}`,
@@ -62,12 +63,37 @@ export const FetchProfile = async () => {
   }
 };
 
-export const UpdateProfile = async (payload) => {
+export const AddProfileAddress = async payload => {
   const token = await useStorage.getItem(USER.ACCESS_TOKEN);
   try {
     // await useStorage.removeItem(USER.USER_DATA)
     const response = await axios.post(
-      `http://localhost:8000/api/profile/update`,
+      `https://ustpalumnilaravelapi-production.up.railway.app/api/profile/add`,
+      payload,
+      {
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    );
+    return response.data;
+  } catch (error) {
+    return Toast.showWithGravity(
+      error.response.data.message,
+      Toast.LONG,
+      Toast.CENTER,
+    );
+  }
+};
+
+export const UpdateProfile = async payload => {
+  const token = await useStorage.getItem(USER.ACCESS_TOKEN);
+  try {
+    // await useStorage.removeItem(USER.USER_DATA)
+    const response = await axios.post(
+      `https://ustpalumnilaravelapi-production.up.railway.app/api/profile/update`,
       payload,
       {
         headers: {
@@ -89,12 +115,40 @@ export const UpdateProfile = async (payload) => {
   }
 };
 
+export const UpdateProfilePic = async payload => {
+  const token = await useStorage.getItem(USER.ACCESS_TOKEN);
+  try {
+    // await useStorage.removeItem(USER.USER_DATA)
+    const response = await axios.post(
+      `https://ustpalumnilaravelapi-production.up.railway.app/api/profile/update-pic`,
+      payload,
+      {
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    );
+    console.log(response.data.data)
+    await useStorage.setItem(USER.USER_DATA, JSON.stringify(response.data.data));
+    Toast.showWithGravity('Successfully Updated', Toast.LONG, Toast.CENTER);
+    return response.data;
+  } catch (error) {
+    return Toast.showWithGravity(
+      error.response.data.message,
+      Toast.LONG,
+      Toast.CENTER,
+    );
+  }
+};
+
 export const ChangePassword = async payload => {
   const token = await useStorage.getItem(USER.ACCESS_TOKEN);
   try {
     // await useStorage.removeItem(USER.USER_DATA)
     const response = await axios.post(
-      `http://localhost:8000/api/auth/change-password`,
+      `https://ustpalumnilaravelapi-production.up.railway.app/api/auth/change-password`,
       payload,
       {
         headers: {
